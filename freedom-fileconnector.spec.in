@@ -1,0 +1,105 @@
+#! /bin/rpm
+#
+#  $Id: freedom-fileconnector.spec.in,v 1.1 2008/12/05 18:09:06 marc Exp $
+#
+#
+%define cerbere         %(rpm -q --queryformat '%{VENDOR}' rpm |grep -q 'none' && echo 1 || echo 0)
+%define pld		%(rpm -q --queryformat '%{VENDOR}' rpm |grep -q 'PLD' && echo 1 || echo 0)
+%define redhat	        %(rpm -q --queryformat '%{VENDOR}' rpm | grep -q -e 'Red Hat, Inc.' -e "Fedora"  && echo 1 || echo 0)
+%{?ncerbere:%define cerbere 1}
+%{?ncerbere:%define redhat 0}
+%{?ncerbere:%define pld 0}
+%{?nredhat:%define cerbere 0}
+%{?nredhat:%define redhat 1}
+%{?nredhat:%define pld 0}
+%{?npld:%define cerbere 0}
+%{?npld:%define redhat 0}
+%{?npld:%define pld 1}
+%if %{cerbere}
+  %define destdir /home/httpd/what
+  %define httpuser http
+  %define apacheconfdir /etc/httpd/httpd.conf
+  %define releasepostfix %(echo)
+  %define ldapuser slapd
+%else
+  %if %{pld}
+    %define destdir /usr/share/what
+    %define httpuser http
+    %define apacheconfdir /etc/webapps/what
+    %define releasepostfix cb
+    %define ldapuser slapd
+   %else
+      %if %{redhat}
+        %define destdir /usr/share/what
+        %define httpuser apache
+        %define apacheconfdir /etc/httpd/conf.d
+        %define releasepostfix fc%(cat /etc/fedora-release | sed -e 's/.* release \\([[:digit:]]\\+\\) .*/\\1/')
+        %define ldapuser ldap
+      %else        
+        %define destdir /usr/share/what
+        %define httpuser apache
+        %define apacheconfdir /etc/httpd/conf.d
+        %define releasepostfix unk
+        %define ldapuser ldap
+      %endif
+  %endif
+%endif
+%define crondir /etc/cron.d
+%{?ndestdir:%define destdir %{ndestdir}}
+%{?nhttpuser:%define httpuser %{nhttpuser}}
+%{?rpost:%define releasepostfix %{rpost}}
+
+%define dirname @APPNAME@
+Summary: Freedom File Connector module
+Name: @PACKAGE@
+Version: @VERSION@
+Release: @RELEASE@%{releasepostfix}
+License: GPL
+Group: Applications/Web
+Source: ftp://ftp.souillac.anakeen.com/pub/anakeen/%{name}-%{version}.tar.gz
+Vendor: Anakeen           
+URL: http://www.anakeen.com/
+Packager: Mac Claverie <marc.claverie@anakeen.com>
+BuildArchitectures: noarch
+BuildRoot: /tmp/anakeen-root
+PreReq: freedom-lib >= 1.2.9
+%description
+freedom file connector allow automatic file import in freedom for HTTP, FTP and file system files
+
+
+
+%prep
+%setup -q -n %{name}-%{version}
+
+%build
+
+%install
+autoconf
+./configure  --with-pubrule=`pwd`
+make  pubdir=$RPM_BUILD_ROOT%{destdir}
+
+
+%clean
+[ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
+
+
+
+
+%files
+%defattr(-,%{httpuser},%{httpuser})
+%dir %{destdir}/%{dirname}
+#%dir %{destdir}/EXTERNALS
+%dir %{destdir}/locale
+%dir %{destdir}/FDL
+%dir %{destdir}/API
+%{destdir}/%{dirname}/*
+%{destdir}/FDL/*
+%{destdir}/locale/*
+#%{destdir}/EXTERNALS/*
+%{destdir}/API/*
+
+
+
+%changelog
+
+

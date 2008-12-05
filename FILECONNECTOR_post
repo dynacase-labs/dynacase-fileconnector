@@ -1,0 +1,22 @@
+#!/bin/bash
+if [ "$dbpsql" == "" ]; then
+    #load environement variable for freedom
+  . /etc/freedom.conf
+   wchoose -b
+fi
+
+
+#------------------------------
+#post installation
+#------------------------------
+if [ "$1" = "I" ] ; then
+   echo
+fi
+#------------------------------
+#post update
+#------------------------------
+if [ "$1" = "U" ] ; then
+
+  $wpub/wsh.php --api=freedom_import --file=$wpub/FILECONNECTOR/freedom-fileconnector.ods
+
+fi
