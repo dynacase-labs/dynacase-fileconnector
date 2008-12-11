@@ -2,7 +2,7 @@
  * File Connector
  *
  * @author Anakeen 2008
- * @version $Id: Method.FileConnector.php,v 1.1 2008/12/05 18:09:06 marc Exp $
+ * @version $Id: Method.FileConnector.php,v 1.2 2008/12/11 14:51:58 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package freedom-fileconnector
  */
@@ -94,17 +94,15 @@ protected function scanSource() {
     $action->log->error("[".$this->title."]: can't open dir ".$this->getValue("ifc_uris"));
     return;
   }
-  $nfk = $nfn = $nfs = $nfc = $nfm = $nfx = array();
+   $nfn = $nfs = $nfc = $nfm = $nfx = array();
   clearstatcache();
   $root = $this->getValue("ifc_uri");
   $ke=0;
   while (false !== ($entry = readdir($dt))) {
     if (!is_file($root."/".$entry)) continue;
     $st = stat($root."/".$entry);
-    $nfk[$ke] = md5($entry.$st['mtime']);
     $nfn[$ke] = $entry;
     $nfs[$ke] = $st['size']/1024;
-    $nfc[$ke] = date("Y-m-d H:i:s", $st['ctime']);
     $nfm[$ke] = date("Y-m-d H:i:s", $st['mtime']);
     $nfx[$ke] = 'N';
     $ke++;
@@ -119,26 +117,23 @@ protected function scanSource() {
   $patterns_r = $this->getTValue('ifc_sl_supress');
 
   $ofp = $this->getTvalue("ifc_c_match");
-  $ofk = $this->getTvalue("ifc_c_key");
   $ofn = $this->getTvalue("ifc_c_name");
   $ofs = $this->getTvalue("ifc_c_size");
-  $ofc = $this->getTvalue("ifc_c_ctime");
   $ofm = $this->getTvalue("ifc_c_mtime");
   $ofx = $this->getTvalue("ifc_c_state");
 
-  $cfk = $cfn = $cfs = $cfc = $cfm = $cfx = array();
+  $cfn = $cfs = $cfc = $cfm = $cfx = array();
   $kk = 0;
-  foreach ($nfk as $k=>$v) {
+  foreach ($nfn as $k=>$v) {
 
     $f = false;
-    $p=array_search($v, $ofk);
-    if (!$p) {
+    $p=array_search($v, $ofn);
+    if ($p===false) {
       // new file => added
       foreach ($patterns_v as $kpm=>$vpm) {
 	if (ereg($vpm, $nfn[$k],$reg)) {
 	  $cfp[$kk] = $patterns_n[$kpm];
 	  $action->log->debug("[".$nfn[$k]."] match pattern {".$cfp[$kk]."}");
-	  $cfk[$kk] = $nfk[$k];
 	  $cfn[$kk] = $nfn[$k];
 	  $cfs[$kk] = $nfs[$k];
 	  $cfc[$kk] = $nfc[$k];
@@ -151,7 +146,6 @@ protected function scanSource() {
     } else {
       // already in list => get the old one 
       $cfp[$kk] = $ofp[$p];
-      $cfk[$kk] = $ofk[$p];
       $cfn[$kk] = $ofn[$p];
       $cfs[$kk] = $ofs[$p];
       $cfc[$kk] = $ofc[$p];
@@ -161,30 +155,25 @@ protected function scanSource() {
     }
   }
       
-//   echo "NEW"; print_r2($nfk);
 //   echo "OLD"; print_r2($ofk);
 //   echo "INSERT"; print_r2($cfk);
 
   $this->deleteValue('ifc_c_match');
-  $this->deleteValue('ifc_c_key');
   $this->deleteValue('ifc_c_name');
   $this->deleteValue('ifc_c_size');
-  $this->deleteValue('ifc_c_ctime');
   $this->deleteValue('ifc_c_mtime');
   $this->deleteValue('ifc_c_state');
 
   $this->setValue('ifc_c_match', $this->_array2val($cfp));
-  $this->setValue('ifc_c_key',   $this->_array2val($cfk));
   $this->setValue('ifc_c_name',  $this->_array2val($cfn));
   $this->setValue('ifc_c_size',  $this->_array2val($cfs));
-  $this->setValue('ifc_c_ctime', $this->_array2val($cfc));
   $this->setValue('ifc_c_mtime', $this->_array2val($cfm));
   $this->setValue('ifc_c_state', $this->_array2val($cfx));
 
   $this->setValue("ifc_lastscan", $this->getDate());
 
   $this->modify(true, array("ifc_lastscan", 'ifc_c_match',
-			    'ifc_c_key','ifc_c_name','ifc_c_size','ifc_c_ctime','ifc_c_mtime','ifc_c_state'), 
+			    'ifc_c_key','ifc_c_name','ifc_c_size','ifc_c_mtime','ifc_c_state'), 
 		true);
   
 }
@@ -195,11 +184,10 @@ function resetScan() {
   $this->deleteValue('ifc_c_key');
   $this->deleteValue('ifc_c_name');
   $this->deleteValue('ifc_c_size');
-  $this->deleteValue('ifc_c_ctime');
   $this->deleteValue('ifc_c_mtime');
   $this->deleteValue('ifc_c_state');
   $this->modify(true, 
-		array('ifc_c_match', 'ifc_c_key','ifc_c_name','ifc_c_size','ifc_c_ctime','ifc_c_mtime','ifc_c_state'), 
+		array('ifc_c_match', 'ifc_c_key','ifc_c_name','ifc_c_size','ifc_c_mtime','ifc_c_state'), 
 		true);
 }
 
@@ -230,30 +218,50 @@ function transfertNewCxFiles() {
   $nf = $this->getNewCxFiles();
   $err = '';
   foreach ($nf as $k=>$v) {
-    $err .= $this->transfertNewCxFiles($v);
+    $err .= $this->transfertCxFile($v);
   }
   return $err;
 }
 
-function transfertCxFile($file='') {
+function transfertCxFile($file) {
+  global $action;
+
+  $fpath = $this->getValue('ifc_path')."/".$file;
+
   if (!$this->isValidCxFile($file)) {
     $err = sprintf(_("(ifc) no such file %s"),$file);
   }
   if ($err=='') {
-    $infos = $this->iGetFileTransf($file);
-    $doc = createDoc($this->dbaccess, $infos['fam'], false);
-    if (!$doc->isAlive()) $err = sprintf(_("(ifc) can't transfert file %s to family %s"),$file,$infos['fam']);
-    else {
-      $doc->disableEditControl();
-      $err = $doc->storeFiles($infos['attr'], array($this->getValue('')."/".$file));
-      if ($err!="") sprintf(_("(ifc) can't store file %s (fam %s / attr %s) err=%s"),$file,$infos['fam'],$infos['attr'],$err);
+    
+    if (method_exists($this, "preTransfert")) $err = $this->preTransfert();
+    if ($err=="") {
+      $infos = $this->iGetFileTransf($file);
+      $doc = createDoc($this->dbaccess, $infos['fam'], false);
+      if (!$doc) $err = sprintf(_("(ifc) can't transfert file %s to family %s"),$file,$infos['fam']);
       else {
-	$doc->add();
-	if ($err!="") sprintf(_("(ifc) can't store file %s (fam %s / attr %s) err=%s"),$file,$infos['fam'],$infos['attr'],$err);
+	$doc->disableEditControl();
+	$err = $doc->storeFile($infos['attr'], $fpath, $file);
+	if ($err!="") $err = sprintf(_("(ifc) can't store file %s (fam %s / attr %s) err=%s"),$file,$infos['fam'],$infos['attr'],$err);
+	else {
+	  $doc->add();
+	  if ($err!="") $err = sprintf(_("(ifc) can't store file %s (fam %s / attr %s) err=%s"),$file,$infos['fam'],$infos['attr'],$err);
+	  else  $err = $doc->modify(true,$infos['attr'],true);
+	}
       }
     }
+    if ($err!="") {
+      $action->log->error($err);
+      AddWarningMsg($err);
+    }   else {
+      $action->log->debug("file $file was transfered");
+      $this->setCxFileStatus($file, "I");
+      
+      $this->setCxFileStatus($file, "I");
+      
+      if ($infos['sup']==1)  $this->removeCxFile($file);
+    }
   }
-  if ($err!="") $action->log->error($err);
+
   return $err;
 }
 
@@ -283,17 +291,6 @@ function copyCxFile($file='', $path='') {
   return "";
 }
 
-function removeCxFile($file='') {
-  if (!$this->isValidCxFile($file)) {
-    return sprintf(_("(ifc) no such file %s"),$file);
-  }
-//   $err = unlink($this->getValue("ifc_uri")."/".$file, $this->getContext());
-  $err = unlink($this->getValue("ifc_uri")."/".$file);
-  if (!$err) return sprintf(_("(ifc) can't remove file %s"),$this->getValue("ifc_uri")."/".$file);
-  return "";
-
-}
-
 protected function isValidCxFile($file='') {
   $ft = $this->getTValue("ifc_c_name");
   if (!in_array($file,$ft)) return false; 
@@ -308,20 +305,84 @@ protected function iGetFileTransf($file) {
   $p = array_search($file, $fn);
   $m = $fm[$p];
 
+
   $trn = $this->getTValue("ifc_sl_name");
   $trf = $this->getTValue("ifc_sl_familyid");
   $tra = $this->getTValue("ifc_sl_attrid");
   $trs = $this->getTValue("ifc_sl_suppr");
-  $pr = array_search($file, $trn);
+  $pr = array_search($m, $trn);
+//   error_log(__FILE__.":".__LINE__.">"."file=$file math=".$m." fam=".$trf[$pr]." attr=".$tra[$pr]." sup=".$trs[$pr]);
 
-  return array( "name"=>$fn[$p],
-		"match"=>$fm,
-		"fam"=>$trf[$pm],
-		"att"=>$tra[$pm],
-		"sup"=>$trs[$pm]
+  return array( "name"  => $fn[$p],
+		"match" => $m,
+		"fam"   => $trf[$pr],
+		"attr"   => $tra[$pr],
+		"sup"   => $trs[$pr]
 		);
 }
  
+function setCxFileStatus($file='', $st="U") 
+{
+  if (!$this->isValidCxFile($file)) return;
+  $fn = $this->getTValue('ifc_c_name');
+  $fs = $this->getTValue('ifc_c_state');
+  $p = array_search($file, $fn); 
+  $fs[$p] = $st;
+  $this->setValue('ifc_c_state', $fs);
+  $this->modify(true, array('ifc_c_state'), true);
+//   error_log(__FILE__.":".__LINE__.">"."file=".$fn[$p]." st=".$fs[$p]);
+}
+
+function getCxFileStatus($file='') 
+{
+  if (!$this->isValidCxFile($file)) return false;
+  $fn = $this->getTValue('ifc_c_name');
+  $fs = $this->getTValue('ifc_c_state');
+  $p = array_search($file, $fn); 
+  return $fs[$p];
+}
 
 protected function getContext() {
+}       
+
+
+function removeCxFile($file='')  {
+  if (!$this->isValidCxFile($file)) return false;
+  $fpath = $this->getValue('ifc_path')."/".$file;
+  if (!unlink($fpath)) {
+    AddWarningMsg(sprintf(_("(ifc) can't unlink file %s"),$fpath));
+    $this->setCxFileStatus($file, "D");
+  } else {
+    $ofp = $this->getTvalue("ifc_c_match");
+    $ofn = $this->getTvalue("ifc_c_name");
+    $ofs = $this->getTvalue("ifc_c_size");
+    $ofm = $this->getTvalue("ifc_c_mtime");
+    $ofx = $this->getTvalue("ifc_c_state");
+    
+    $p = array_search($file, $ofn);
+    if ($p!==false) {
+     
+      
+      $this->deleteValue('ifc_c_match');
+      $this->deleteValue('ifc_c_name');
+      $this->deleteValue('ifc_c_size');
+      $this->deleteValue('ifc_c_mtime');
+      $this->deleteValue('ifc_c_state');
+      
+      unset($ofp[$p]);
+      unset($ofn[$p]);
+      unset($ofs[$p]);
+      unset($ofm[$p]);
+      unset($ofx[$p]);
+     
+      $this->setValue('ifc_c_match', $ofp);
+      $this->setValue('ifc_c_name',  $ofn);
+      $this->setValue('ifc_c_size',  $ofs);
+      $this->setValue('ifc_c_mtime', $ofm);
+      $this->setValue('ifc_c_state', $ofx);
+
+      $this->modify(true, array('ifc_c_match','ifc_c_name','ifc_c_size','ifc_c_mtime','ifc_c_state'), true);
+    }
+  }
 }
+      
