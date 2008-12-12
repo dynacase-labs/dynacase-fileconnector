@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-12-05 12:59+0100\n"
+"POT-Creation-Date: 2008-12-12 18:20+0100\n"
 "PO-Revision-Date: 2008-05-26 10:41+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: English <distrib@anakeen.com>\n"
@@ -20,8 +20,605 @@ msgid "(ifc) access to %s is checked"
 msgstr ""
 
 #, c-format
+msgid "(ifc) file %s transfert(ipre) error=%s"
+msgstr ""
+
+#, c-format
+msgid "(ifc) can't transfert file %s to family %s"
+msgstr ""
+
+#, c-format
+msgid "(ifc) file %s (fam %s / attr %s) transfert(pre) error=%s"
+msgstr ""
+
+#, c-format
+msgid ""
+"(ifc) file %s : no attribute set and no file/image attribute for family %s"
+msgstr ""
+
+#, c-format
+msgid "(ifc) file %s (fam %s / attr %s) transfert(store) error=%s"
+msgstr ""
+
+#, c-format
+msgid "(ifc) file %s (fam %s / attr %s) transfert(add) error=%s"
+msgstr ""
+
+#, c-format
+msgid "(ifc) file %s (fam %s / attr %s) transfert(post) error=%s"
+msgstr ""
+
+#, c-format
+msgid "(ifc) file %s (fam %s / attr %s) transfert(refresh) error=%s"
+msgstr ""
+
+#, c-format
+msgid "(ifc) no such file %s"
+msgstr ""
+
+#, c-format
+msgid "(ifc) can't retrieve content for file %s"
+msgstr ""
+
+#, c-format
+msgid "(ifc) can't access directory %s"
+msgstr ""
+
+#, c-format
+msgid "(ifc) can't write into directory %s"
+msgstr ""
+
+#, c-format
+msgid "(ifc) can't copy file %s to %s"
+msgstr ""
+
+#, c-format
+msgid "(ifc) can't unlink file %s"
+msgstr ""
+
+#, c-format
 msgid "hostname required for protocol %s"
 msgstr ""
 
 msgid "give server full qualified name or its IP address"
 msgstr ""
+
+msgid "valid families are needed"
+msgstr ""
+
+#, c-format
+msgid "family %s have no file or image attribute"
+msgstr ""
+
+msgid "use [...] to select target familie"
+msgstr ""
+
+msgid "family must be selected before"
+msgstr ""
+
+msgid "doctitle"
+msgstr ""
+
+msgid "revdate"
+msgstr ""
+
+msgid "revision"
+msgstr ""
+
+msgid "owner"
+msgstr ""
+
+msgid "state"
+msgstr ""
+
+#, fuzzy
+msgid "FILECONNECTOR#title"
+msgstr "File Connector"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_general"
+msgstr "description"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_name"
+msgstr "name"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_descr"
+msgstr "description"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_access"
+msgstr "access"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_mode"
+msgstr "type"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_mode#FS"
+msgstr "file system"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_host"
+msgstr "host"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_port"
+msgstr "port"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_login"
+msgstr "login"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_password"
+msgstr "password"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_path"
+msgstr "path"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_uri"
+msgstr "URI computed"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_uris"
+msgstr "URI computed (secure)"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_opened"
+msgstr "is accessible"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_opened#0"
+msgstr "no"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_opened#1"
+msgstr "yes"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_lastscan"
+msgstr "last scan"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_spec"
+msgstr "pattern matching"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_list"
+msgstr "rules"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_sl_name"
+msgstr "name"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_sl_pattern"
+msgstr "pattern"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_sl_familyid"
+msgstr "family ID"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_sl_family"
+msgstr "family"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_sl_attrid"
+msgstr "attr ID"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_sl_attr"
+msgstr "attribute"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_sl_dirid"
+msgstr "dir ID"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_sl_dir"
+msgstr "move to"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_sl_dir#eltitle"
+msgstr "create folder"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_sl_suppr"
+msgstr "suppress after import"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_sl_suppr#0"
+msgstr "no"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_sl_suppr#1"
+msgstr "yes"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_program"
+msgstr "programmation"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_run"
+msgstr "actif"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_run#0"
+msgstr "no"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_run#1"
+msgstr "yes"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_procid"
+msgstr "proc ID"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_proc"
+msgstr "process"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cdateexec"
+msgstr "exec date"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cdateexec#showempty"
+msgstr "--"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperday"
+msgstr "day period"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperday#0"
+msgstr "0"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperday#1"
+msgstr "1"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperday#2"
+msgstr "2"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperday#3"
+msgstr "3"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperday#4"
+msgstr "4"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperday#5"
+msgstr "5"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperday#6"
+msgstr "6"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperday#7"
+msgstr "7"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperday#8"
+msgstr "8"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperday#9"
+msgstr "9"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperday#10"
+msgstr "10"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperday#11"
+msgstr "11"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperday#12"
+msgstr "12"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperday#13"
+msgstr "13"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperday#14"
+msgstr "14"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperday#15"
+msgstr "15"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperday#16"
+msgstr "16"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperday#17"
+msgstr "17"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperday#18"
+msgstr "18"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperday#19"
+msgstr "19"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperday#20"
+msgstr "20"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperday#21"
+msgstr "21"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperday#22"
+msgstr "22"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperday#23"
+msgstr "23"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperday#24"
+msgstr "24"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperday#25"
+msgstr "25"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperday#26"
+msgstr "26"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperday#27"
+msgstr "27"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperday#28"
+msgstr "28"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperday#29"
+msgstr "29"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperday#30"
+msgstr "30"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperday#31"
+msgstr "31"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperhour"
+msgstr "hour period"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperhour#0"
+msgstr "0"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperhour#1"
+msgstr "1"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperhour#2"
+msgstr "2"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperhour#3"
+msgstr "3"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperhour#4"
+msgstr "4"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperhour#5"
+msgstr "5"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperhour#6"
+msgstr "6"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperhour#7"
+msgstr "7"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperhour#8"
+msgstr "8"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperhour#9"
+msgstr "9"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperhour#10"
+msgstr "10"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperhour#11"
+msgstr "11"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperhour#12"
+msgstr "12"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperhour#13"
+msgstr "13"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperhour#14"
+msgstr "14"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperhour#15"
+msgstr "15"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperhour#16"
+msgstr "16"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperhour#17"
+msgstr "17"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperhour#18"
+msgstr "18"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperhour#19"
+msgstr "19"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperhour#20"
+msgstr "20"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperhour#21"
+msgstr "21"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperhour#22"
+msgstr "22"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperhour#23"
+msgstr "23"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cpermin"
+msgstr "min period"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cpermin#0"
+msgstr "0"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cpermin#5"
+msgstr "5"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cpermin#10"
+msgstr "10"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cpermin#15"
+msgstr "15"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cpermin#20"
+msgstr "20"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cpermin#25"
+msgstr "25"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cpermin#30"
+msgstr "30"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cpermin#35"
+msgstr "35"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cpermin#40"
+msgstr "40"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cpermin#45"
+msgstr "45"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cpermin#50"
+msgstr "50"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cpermin#55"
+msgstr "55"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_content"
+msgstr "content"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_c_list"
+msgstr "files"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_c_match"
+msgstr "match"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_c_name"
+msgstr "name"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_c_size"
+msgstr "size (Ko)"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_c_mtime"
+msgstr "modification time"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_c_state"
+msgstr "state"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_c_state#N"
+msgstr "new"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_c_state#I"
+msgstr "imported"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_c_state#D"
+msgstr "deleted"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_c_state#U"
+msgstr "unknown"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_menu_transfert"
+msgstr "import new"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_menu_transfert#submenu"
+msgstr "source"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_menu_scandir"
+msgstr "check new"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_menu_scandir#submenu"
+msgstr "source"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_menu_reset"
+msgstr "clear list"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_menu_reset#submenu"
+msgstr "source"

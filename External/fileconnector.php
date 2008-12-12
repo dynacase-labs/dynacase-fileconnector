@@ -24,6 +24,19 @@ function getFilesAttr($dbaccess,$famid,$name) {
   return $tr;  
 }
 
-
+function getFamiliesWithFile($dbaccess, $fam) {
+  include_once("EXTERNALS/fdl.php");
+  $tr = lfamilies($dbaccess,$fam);
+  foreach ($tr as $k=>$v) {
+    $fd = new_Doc($dbaccess, $v[1], false, false);
+    if (!$fd->GetFirstFileAttributes()) {
+      unset($tr[$k]);
+    } else {
+      $tr[$k][3] = $tr[$k][4] = ' ';
+    }
+  }
+  return $tr;
+}
+    
 
 ?>

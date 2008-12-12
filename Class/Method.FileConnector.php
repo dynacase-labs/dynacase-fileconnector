@@ -2,7 +2,7 @@
  * File Connector
  *
  * @author Anakeen 2008
- * @version $Id: Method.FileConnector.php,v 1.2 2008/12/11 14:51:58 marc Exp $
+ * @version $Id: Method.FileConnector.php,v 1.3 2008/12/12 19:04:00 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package freedom-fileconnector
  */
@@ -51,7 +51,7 @@ function postModify() {
   $this->setValue("ifc_uri", $uri);
   $this->setValue("ifc_uris", $uris);
   $valid = 0;
-//   $dt = opendir($uri,$this->getContext());
+  //   $dt = opendir($uri,$this->getContext());
   $dt = opendir($uri);
   if (!$dt) {
     AddWarningMsg(sprintf(_("(ifc) can't access file from %s"),$uris));
@@ -62,29 +62,16 @@ function postModify() {
   }
   
   $this->setValue("ifc_opened", $valid);
-  $this->modify(true,array("ifc_uri", "ifc_uris", "ifc_sl_opened"),true);
+  $this->modify(true,array("ifc_uri", "ifc_uris", "ifc_opened"),true);
+
+  $err = $this->designProcessus();
+  AddWarningMsg($err);
+  
+
   return;
 }
 
-function checkHost() {
-  
-  $error_message = "";
-  $proposal = array();
-
-  $proto = $this->getValue("ifc_sl_mode");
-
-  if ($this->getValue("ifc_sl_host")=="" && 
-      ( ($proto=="FTP") || ($proto=="HTTP") || ($proto=="HTTPS")) ) {
-    $error_message = sprintf(_("hostname required for protocol %s"),$this->getValue("ifc_sl_mode"));
-    $proposal[] = _("give server full qualified name or its IP address");
-  }
-  return array( "err" => $error_message,
-                "sug" => $proposal );
-}
-
-
-
-protected function scanSource() {
+final protected function scanSource() {
   global $action;
   $dir = $this->getValue("ifc_uri");
 
@@ -114,6 +101,7 @@ protected function scanSource() {
   $patterns_v = $this->getTValue('ifc_sl_pattern');
   $patterns_f = $this->getTValue('ifc_sl_familyid');
   $patterns_a = $this->getTValue('ifc_sl_attrid');
+  $patterns_d = $this->getTValue('ifc_sl_dirid');
   $patterns_r = $this->getTValue('ifc_sl_supress');
 
   $ofp = $this->getTvalue("ifc_c_match");
@@ -155,9 +143,6 @@ protected function scanSource() {
     }
   }
       
-//   echo "OLD"; print_r2($ofk);
-//   echo "INSERT"; print_r2($cfk);
-
   $this->deleteValue('ifc_c_match');
   $this->deleteValue('ifc_c_name');
   $this->deleteValue('ifc_c_size');
@@ -170,16 +155,20 @@ protected function scanSource() {
   $this->setValue('ifc_c_mtime', $this->_array2val($cfm));
   $this->setValue('ifc_c_state', $this->_array2val($cfx));
 
-  $this->setValue("ifc_lastscan", $this->getDate());
+  $this->setValue("ifc_lastscan", $this->getTimeDate(0,true));
 
   $this->modify(true, array("ifc_lastscan", 'ifc_c_match',
 			    'ifc_c_key','ifc_c_name','ifc_c_size','ifc_c_mtime','ifc_c_state'), 
 		true);
+
   
 }
 
-
-function resetScan() {
+/**
+ * reset (clean) list of file to be processes
+ * @return true
+ */
+final public function resetScan() {
   $this->deleteValue('ifc_c_match');
   $this->deleteValue('ifc_c_key');
   $this->deleteValue('ifc_c_name');
@@ -189,14 +178,13 @@ function resetScan() {
   $this->modify(true, 
 		array('ifc_c_match', 'ifc_c_key','ifc_c_name','ifc_c_size','ifc_c_mtime','ifc_c_state'), 
 		true);
+  return true;
 }
 
 
 
-function verifyNewCxFiles() {
-
+final public function verifyNewCxFiles() {
   $this->scanSource();
-
   $st = $this->getTValue("ifc_c_state");
   foreach ($st as $k=>$v) {
     if ($v=='N') return true;
@@ -204,8 +192,9 @@ function verifyNewCxFiles() {
   return false;
 }
 
-function getNewCxFiles() {
+final public function getNewCxFiles() {
   $ret = array();
+  $this->scanSource();
   $st = $this->getTValue("ifc_c_state");
   $fn = $this->getTValue("ifc_c_name");
   foreach ($st as $k=>$v) {
@@ -214,7 +203,7 @@ function getNewCxFiles() {
   return $ret;
 }
 
-function transfertNewCxFiles() {
+final public function transfertNewCxFiles() {
   $nf = $this->getNewCxFiles();
   $err = '';
   foreach ($nf as $k=>$v) {
@@ -223,53 +212,100 @@ function transfertNewCxFiles() {
   return $err;
 }
 
-function transfertCxFile($file) {
+
+
+public function PreTransfert(&$fileconnector, $filepath, &$doc) {
+  return "";
+}
+
+public function PostTransfert(&$fileconnector, $filepath, &$doc) {
+  return "";
+}
+
+
+final public function transfertCxFile($file) {
   global $action;
-
-  $fpath = $this->getValue('ifc_path')."/".$file;
-
-  if (!$this->isValidCxFile($file)) {
-    $err = sprintf(_("(ifc) no such file %s"),$file);
+  
+  $err = $this->iPreTransfert($file);
+  if ($err!='') {
+    return sprintf(_("(ifc) file %s transfert(ipre) error=%s"),$file,$err);
   }
-  if ($err=='') {
-    
-    if (method_exists($this, "preTransfert")) $err = $this->preTransfert();
-    if ($err=="") {
-      $infos = $this->iGetFileTransf($file);
-      $doc = createDoc($this->dbaccess, $infos['fam'], false);
-      if (!$doc) $err = sprintf(_("(ifc) can't transfert file %s to family %s"),$file,$infos['fam']);
+
+  $fpath = $this->getValue('ifc_path')."/".$file;  
+  $infos = $this->iGetFileTransf($file);
+  $doc = createDoc($this->dbaccess, $infos['fam'], false);
+  if (!$doc) $err = sprintf(_("(ifc) can't transfert file %s to family %s"),$file,$infos['fam']);
+  else {
+    if (method_exists($this, "preTransfert")) $err = $this->PreTransfert($this, $fpath, $doc);
+    if ($err!="") {
+      $err = sprintf(_("(ifc) file %s (fam %s / attr %s) transfert(pre) error=%s"),
+		     $file,$infos['fam'],$infos['attr'],$err);
+    } else {
+      if (method_exists($doc, "connectorExecute")) $err = $doc->connectorExecute($this, $fpath, $doc);
       else {
 	$doc->disableEditControl();
-	$err = $doc->storeFile($infos['attr'], $fpath, $file);
-	if ($err!="") $err = sprintf(_("(ifc) can't store file %s (fam %s / attr %s) err=%s"),$file,$infos['fam'],$infos['attr'],$err);
-	else {
-	  $doc->add();
-	  if ($err!="") $err = sprintf(_("(ifc) can't store file %s (fam %s / attr %s) err=%s"),$file,$infos['fam'],$infos['attr'],$err);
-	  else  $err = $doc->modify(true,$infos['attr'],true);
+	$attr = $infos['attr'];
+	if ($attr=="") $attr = $doc->GetFirstFileAttributes();
+	$attr = ($attr==false?"":$attr);
+	if ($attr=="") {
+	  $err = sprintf(_("(ifc) file %s : no attribute set and no file/image attribute for family %s"),$file,$infos['fam']);
+	} else {
+	  $err = $doc->storeFile($infos['attr'], $fpath, $file);
+	  if ($err!="") $err = sprintf(_("(ifc) file %s (fam %s / attr %s) transfert(store) error=%s"),
+				       $file,$infos['fam'],$infos['attr'],$err);
+	  else {
+	    $doc->add();
+	    if ($err!="") $err = sprintf(_("(ifc) file %s (fam %s / attr %s) transfert(add) error=%s"),
+					 $file,$infos['fam'],$infos['attr'],$err);
+	    else  {
+	      $err = $doc->postModify();
+	      if ($err!="") $err = sprintf(_("(ifc) file %s (fam %s / attr %s) transfert(post) error=%s"),
+					   $file,$infos['fam'],$infos['attr'],$err);
+	      else  {
+		$err = $doc->refresh();
+		if ($err!="") $err = sprintf(_("(ifc) file %s (fam %s / attr %s) transfert(refresh) error=%s"),
+					   $file,$infos['fam'],$infos['attr'],$err);
+	      }
+	    }
+	  }
 	}
       }
     }
-    if ($err!="") {
-      $action->log->error($err);
-      AddWarningMsg($err);
-    }   else {
-      $action->log->debug("file $file was transfered");
-      $this->setCxFileStatus($file, "I");
-      
-      $this->setCxFileStatus($file, "I");
-      
-      if ($infos['sup']==1)  $this->removeCxFile($file);
-    }
   }
-
+  if ($err!="") {
+    $action->log->error($err);
+    AddWarningMsg($err);
+  } else {
+    $action->log->debug("file $file was transfered");
+    $this->setCxFileStatus($file, "I");
+    $this->iPostTransfert($file, $doc);
+    if (method_exists($this, "postTransfert")) $err = $this->PostTransfert($this, $fpath, $doc);
+  }
+  
   return $err;
 }
 
-function getCxFiles() {
+final protected function iPostTransfert($file, &$doc) {
+  $infos = $this->iGetFileTransf($file);
+  if ($infos['dir']>0)  $this->moveCxFile($file, $doc);
+  if ($infos['sup']==1)  $this->removeCxFile($file);
+}
+
+
+final protected function iPreTransfert($file='') {
+  $err = "";
+  $fpath = $this->getValue('ifc_path')."/".$file;
+  if (!$this->isValidCxFile($file)) {
+    $err = sprintf(_("(ifc) no such file %s"),$file);
+  }
+  return $err;
+}
+
+final public function getCxFiles() {
   return $this->getTValue("ifc_c_name");
 }
 
-function getCxFileContent($file='') {
+final public function getCxFileContent($file='') {
   if (!$this->isValidCxFile($file)) {
     return sprintf(_("(ifc) no such file %s"),$file);
   }
@@ -278,50 +314,50 @@ function getCxFileContent($file='') {
   return $c;
 }
 
-function copyCxFile($file='', $path='') {
+final public function copyCxFile($file='', $path='') {
   if (!$this->isValidCxFile($file)) {
     return sprintf(_("(ifc) no such file %s"),$file);
   }
   if (!is_dir($path)) return sprintf(_("(ifc) can't access directory %s"),$path);
   if (!is_writeable($path)) return sprintf(_("(ifc) can't write into directory %s"),$path);
   
-//   $err = copy($this->getValue("ifc_uri")."/".$file, $path, $this->getContext());
   $err = copy($this->getValue("ifc_uri")."/".$file, $path);
   if (!$err) return sprintf(_("(ifc) can't copy file %s to %s"),$this->getValue("ifc_uri")."/".$file,$path);
   return "";
 }
 
-protected function isValidCxFile($file='') {
+final protected function isValidCxFile($file='') {
   $ft = $this->getTValue("ifc_c_name");
   if (!in_array($file,$ft)) return false; 
   else return true;
 }
  
  
-protected function iGetFileTransf($file) {
+final protected function iGetFileTransf($file) {
+  static $minfo = array();
 
   $fn = $this->getTValue("ifc_c_name");
   $fm = $this->getTValue("ifc_c_match");
   $p = array_search($file, $fn);
   $m = $fm[$p];
-
-
-  $trn = $this->getTValue("ifc_sl_name");
-  $trf = $this->getTValue("ifc_sl_familyid");
-  $tra = $this->getTValue("ifc_sl_attrid");
-  $trs = $this->getTValue("ifc_sl_suppr");
-  $pr = array_search($m, $trn);
-//   error_log(__FILE__.":".__LINE__.">"."file=$file math=".$m." fam=".$trf[$pr]." attr=".$tra[$pr]." sup=".$trs[$pr]);
-
-  return array( "name"  => $fn[$p],
-		"match" => $m,
-		"fam"   => $trf[$pr],
-		"attr"   => $tra[$pr],
-		"sup"   => $trs[$pr]
-		);
+  if (!isset($minfo[$m])) {
+    $trn = $this->getTValue("ifc_sl_name");
+    $trf = $this->getTValue("ifc_sl_familyid");
+    $tra = $this->getTValue("ifc_sl_attrid");
+    $trd = $this->getTValue("ifc_sl_dirid");
+    $trs = $this->getTValue("ifc_sl_suppr");
+    $pr = array_search($m, $trn);
+    $minfo[$m] = array( "match" => $m,
+			"fam"   => $trf[$pr],
+			"attr"  => $tra[$pr],
+			"dir"   => $trd[$pr],
+			"sup"   => $trs[$pr] );
+//     error_log("$file => match=[".$minfo[$m]["match"]."] fam=[".$minfo[$m]["fam"]."] attr=[".$minfo[$m]["attr"]."] dir=[".$minfo[$m]["dir"]."] sup=[".$minfo[$m]["sup"]."]");
+  } 
+  return $minfo[$m];
 }
  
-function setCxFileStatus($file='', $st="U") 
+final protected function setCxFileStatus($file='', $st="U") 
 {
   if (!$this->isValidCxFile($file)) return;
   $fn = $this->getTValue('ifc_c_name');
@@ -333,7 +369,7 @@ function setCxFileStatus($file='', $st="U")
 //   error_log(__FILE__.":".__LINE__.">"."file=".$fn[$p]." st=".$fs[$p]);
 }
 
-function getCxFileStatus($file='') 
+final public function getCxFileStatus($file='') 
 {
   if (!$this->isValidCxFile($file)) return false;
   $fn = $this->getTValue('ifc_c_name');
@@ -342,11 +378,17 @@ function getCxFileStatus($file='')
   return $fs[$p];
 }
 
-protected function getContext() {
-}       
+final public function moveCxFile($file, &$doc)  {
+  $err = "";
+  $infos = $this->iGetFileTransf($file);
+  if ($infos["dir"]) $dir = new_Doc($this->dbaccess, $infos["dir"]);
+  if ($dir->isAlive() && $dir->doctype=='D') {
+    $dir->addFile($doc->initid);
+  }
+  return $err;
+}
 
-
-function removeCxFile($file='')  {
+final public function removeCxFile($file='')  {
   if (!$this->isValidCxFile($file)) return false;
   $fpath = $this->getValue('ifc_path')."/".$file;
   if (!unlink($fpath)) {
@@ -386,3 +428,103 @@ function removeCxFile($file='')  {
   }
 }
       
+final protected function checkHost() {
+  
+  $error_message = "";
+  $proposal = array();
+
+  $proto = $this->getValue("ifc_mode");
+
+  if ($this->getValue("ifc_host")=="" && 
+      ( ($proto=="FTP") || ($proto=="HTTP") || ($proto=="HTTPS")) ) {
+    $error_message = sprintf(_("hostname required for protocol %s"),$this->getValue("ifc_mode"));
+    $proposal[] = _("give server full qualified name or its IP address");
+  }
+  return array( "err" => $error_message,
+                "sug" => $proposal );
+}
+
+final protected function checkFamily() {
+  
+  $error_message = "";
+  $proposal = array();
+
+  $fam = $this->getTValue("ifc_sl_familyid");
+  $ic = array();
+  foreach ($fam as $k=>$v) {
+    if (trim($v)=='') 	$error_message = sprintf(_("valid families are needed"));
+    else {
+      $fd = new_Doc($this->dbaccess, $v);
+      if (!$fd->isAlive() || $fd->doctype!='C') {
+	$error_message = sprintf(_("valid families are needed"));
+      } else {
+	if ($fd->GetFirstFileAttributes()===false) $error_message = sprintf(_("family %s have no file or image attribute"),$fd->getTitle());
+      }
+    }
+  }
+
+  if ($error_message != "")  $proposal[] = _("use [...] to select target familie");
+    
+  return array( "err" => $error_message,
+                "sug" => $proposal );
+}
+
+final protected function showSourceMenu() {
+  if ($this->getValue("ifc_opened")==1) return MENU_ACTIVE;
+  return MENU_INACTIVE;
+}       
+
+
+
+final protected function getContext() {
+  return;
+}       
+
+
+final protected function designProcessus() {
+
+  $err = "";
+
+  
+  $exist = false;
+  if ($this->getValue("ifc_p_procid")>0) {
+    $dp = new_Doc($this->dbaccess, $this->getValue("ifc_p_procid"));
+    if ($dp->isAlive()) $exist = true;
+  }
+    
+  if (!$exist) {
+    $dp = createDoc($this->dbaccess, "EXEC");
+    $dp->setValue("exec_title", sprintf("[FileConnector] %s", $this->getTitle()));
+    $dp->setValue("exec_application", "FDL");
+    $dp->setValue("exec_action", "FDL_METHOD");  
+    $dp->setValue("exec_idvar", array("id", "method"));
+    $dp->setValue("exec_valuevar", array($this->id, "transfertNewCxFiles()"));
+    $err = $dp->add();
+    if ($err=="") {
+      $this->setValue("ifc_p_procid", $dp->id);
+      $this->setValue("ifc_p_proc", $dp->getValue("exec_title"));
+      $err = $this->modify(true,array("ifc_p_procid","ifc_p_proc"),true);
+    } else {
+      return $err;
+    }
+  }
+   
+  if ($this->getValue("ifc_p_run")==1) {
+    $dp->setValue("exec_handnextdate", $this->getValue("ifc_p_cdateexec"));
+    $dp->setValue("exec_periodday",    $this->getValue("ifc_p_cperday"));
+    $dp->setValue("exec_periodhour",   $this->getValue("ifc_p_cperhour"));
+    $dp->setValue("exec_periodmin",    $this->getValue("ifc_p_cpermin"));
+  } else { 
+    $dp->setValue("exec_handnextdate", " ");
+    $dp->setValue("exec_periodday", 0);
+    $dp->setValue("exec_periodhour", 0);
+    $dp->setValue("exec_periodmin", 0);
+  }
+
+  $err = $dp->modify();
+  if ($err!='') {
+    $err = $dp->postModify();
+    if ($err!='') $err = $dp->refresh();
+  }
+  return $err;
+}

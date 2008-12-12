@@ -1,5 +1,5 @@
 # ============================================
-# $Id: Makefile.in,v 1.1 2008/12/05 18:09:06 marc Exp $
+# $Id: Makefile.in,v 1.2 2008/12/12 19:04:00 marc Exp $
 # ============================================
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
@@ -16,10 +16,13 @@ GZIP_ENV = --best
 
 export targetdir PACKAGE
 
+
 #SUBDIR= Class Zone Action External Api Images 
 SUBDIR=Class Api Images External
 
 include $(utildir)/PubRule
+
+TRANSODS += freedom-fileconnector.ods
 
 DISTFILES += $(SUBDIR)  $(wildcard *.ods)\
             $(wildcard *.in) \
