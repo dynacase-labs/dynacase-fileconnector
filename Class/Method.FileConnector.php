@@ -2,7 +2,7 @@
  * File Connector
  *
  * @author Anakeen 2008
- * @version $Id: Method.FileConnector.php,v 1.3 2008/12/12 19:04:00 marc Exp $
+ * @version $Id: Method.FileConnector.php,v 1.4 2008/12/13 06:03:46 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package freedom-fileconnector
  */
@@ -241,7 +241,7 @@ final public function transfertCxFile($file) {
       $err = sprintf(_("(ifc) file %s (fam %s / attr %s) transfert(pre) error=%s"),
 		     $file,$infos['fam'],$infos['attr'],$err);
     } else {
-      if (method_exists($doc, "connectorExecute")) $err = $doc->connectorExecute($this, $fpath, $doc);
+      if (method_exists($doc, "connectorExecute")) $err = $doc->connectorExecute($this, $fpath);
       else {
 	$doc->disableEditControl();
 	$attr = $infos['attr'];
