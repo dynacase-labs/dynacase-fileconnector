@@ -21,6 +21,7 @@ set -e
 case "$1" in
     configure)
 	chown -R www-data /usr/share/what/FDL/*
+	/usr/share/what/FILECONNECTOR/FILECONNECTOR_post U
 	/usr/share/what/wstop
     ;;
 
