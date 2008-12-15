@@ -1,0 +1,12 @@
+Source: freedom-fileconnector
+Section: web
+Priority: extra
+Maintainer: marc <marc@anakeen.com>
+Build-Depends: debhelper (>= 5), autoconf
+Standards-Version: 3.7.2
+
+Package: freedom-fileconnector
+Architecture: all
+Depends: freedom (>= 2.11)
+Description:  This package provides freedom-fileconnector : an automatized file importation solution for freedom
+
