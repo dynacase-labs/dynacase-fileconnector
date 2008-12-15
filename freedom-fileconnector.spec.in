@@ -1,6 +1,6 @@
 #! /bin/rpm
 #
-#  $Id: freedom-fileconnector.spec.in,v 1.1 2008/12/05 18:09:06 marc Exp $
+#  $Id: freedom-fileconnector.spec.in,v 1.2 2008/12/15 10:22:27 eric Exp $
 #
 #
 %define cerbere         %(rpm -q --queryformat '%{VENDOR}' rpm |grep -q 'none' && echo 1 || echo 0)
@@ -88,14 +88,14 @@ make  pubdir=$RPM_BUILD_ROOT%{destdir}
 %files
 %defattr(-,%{httpuser},%{httpuser})
 %dir %{destdir}/%{dirname}
-#%dir %{destdir}/EXTERNALS
+%dir %{destdir}/EXTERNALS
 %dir %{destdir}/locale
 %dir %{destdir}/FDL
 %dir %{destdir}/API
 %{destdir}/%{dirname}/*
 %{destdir}/FDL/*
 %{destdir}/locale/*
-#%{destdir}/EXTERNALS/*
+%{destdir}/EXTERNALS/*
 %{destdir}/API/*
 
 
