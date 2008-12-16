@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-12-12 18:20+0100\n"
-"PO-Revision-Date: 2008-12-12 18:23+0100\n"
+"POT-Creation-Date: 2008-12-16 19:02+0100\n"
+"PO-Revision-Date: 2008-12-16 19:14+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
@@ -53,6 +53,10 @@ msgid "(ifc) file %s (fam %s / attr %s) transfert(refresh) error=%s"
 msgstr "fichier %s (famille %s/attribut %s) [refresh] erreur [%s]"
 
 #, c-format
+msgid "doc %s was created for file %s"
+msgstr ""
+
+#, c-format
 msgid "(ifc) no such file %s"
 msgstr "pas de fichier %s"
 
@@ -77,11 +81,8 @@ msgid "(ifc) can't unlink file %s"
 msgstr "la suppression du fichier %s n'est pas possible"
 
 #, c-format
-msgid "hostname required for protocol %s"
-msgstr "Un nom de machine est obligatoire pour le protocole %s."
-
-msgid "give server full qualified name or its IP address"
-msgstr "Indiquez le nom complet ou l'adresse IP du serveur"
+msgid "%s required"
+msgstr ""
 
 msgid "valid families are needed"
 msgstr "les familles valident sont attendues"
@@ -111,6 +112,12 @@ msgstr ""
 msgid "state"
 msgstr ""
 
+msgid "file system"
+msgstr ""
+
+msgid "file transfert protocol"
+msgstr ""
+
 msgid "FILECONNECTOR#title"
 msgstr "File Connector"
 
@@ -129,8 +136,8 @@ msgstr "source"
 msgid "FILECONNECTOR#ifc_mode"
 msgstr "mode d'accès"
 
-msgid "FILECONNECTOR#ifc_mode#FS"
-msgstr "système de fichier"
+msgid "FILECONNECTOR#ifc_mode#listProtocols()"
+msgstr ""
 
 msgid "FILECONNECTOR#ifc_host"
 msgstr "machine hôte"
@@ -492,6 +499,14 @@ msgstr "source"
 msgid "FILECONNECTOR#ifc_menu_reset"
 msgstr "vider la liste des fichiers"
 
-#, fuzzy
 msgid "FILECONNECTOR#ifc_menu_reset#submenu"
 msgstr "source"
+
+#~ msgid "hostname required for protocol %s"
+#~ msgstr "Un nom de machine est obligatoire pour le protocole %s."
+
+#~ msgid "give server full qualified name or its IP address"
+#~ msgstr "Indiquez le nom complet ou l'adresse IP du serveur"
+
+#~ msgid "FILECONNECTOR#ifc_mode#FS"
+#~ msgstr "système de fichier"

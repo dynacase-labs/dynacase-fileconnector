@@ -2,7 +2,7 @@
  * File Connector
  *
  * @author Anakeen 2008
- * @version $Id: Method.FileConnector.php,v 1.4 2008/12/13 06:03:46 marc Exp $
+ * @version $Id: Method.FileConnector.php,v 1.5 2008/12/16 18:15:11 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package freedom-fileconnector
  */
@@ -14,55 +14,42 @@ function postModify() {
 
 
   // compute URI
-  $uri = $uris = "";
+  $uri =  "";
   switch ($this->getValue("ifc_mode")) {
     
   case "FTP":
-  case "HTTP":
-  case "HTTPS":
     $uri = strtolower($this->getValue("ifc_mode"))."://";
-    $uris = strtolower($this->getValue("ifc_mode"))."://";
-    if ($this->getValue("ifc_login")!="") {
-      $uri .= $this->getValue("ifc_login");
-      $uris .= $this->getValue("ifc_login");
-      if ($this->getValue("ifc_password")!="") {
-	$uri .= ":".$this->getValue("ifc_password");
-	$uris .= ":*********";
-      }
-      $uri .= "@";
-      $uris .= "@";
-    }
+    $uri .= ($this->getValue("ifc_login")==""?"anonymous":$this->getValue("ifc_login"));
+    $uri .= ":*********";
+    $uri .= "@";
     $uri .= $this->getValue("ifc_host");
-    $uris .= $this->getValue("ifc_host");
     if ($this->getValue("ifc_port")!="") {
       $uri .= ":".$this->getValue("ifc_port");
-      $uris .= ":".$this->getValue("ifc_port");
     }
     $uri .= $this->getValue("ifc_path");
-    $uris .= $this->getValue("ifc_path");
     break;
     
-  default:
+  case "FS":
     $uri = $this->getValue("ifc_path");
-    $uris = $this->getValue("ifc_path");
+    break;
+
+  default:
+    $uri = "-unknown protocol-";
+
   }
-  $oa = $this->getAttribute("ifc_uri");
-  $oa->setVisiBility('R');
-  $this->setValue("ifc_uri", $uri);
-  $this->setValue("ifc_uris", $uris);
+  $this->setValue("ifc_uris", $uri);
   $valid = 0;
-  //   $dt = opendir($uri,$this->getContext());
   $dt = opendir($uri);
   if (!$dt) {
-    AddWarningMsg(sprintf(_("(ifc) can't access file from %s"),$uris));
+    AddWarningMsg(sprintf(_("(ifc) can't access file from %s"),$uri));
   } else {
-    AddWarningMsg(sprintf(_("(ifc) access to %s is checked"),$uris));
+    AddWarningMsg(sprintf(_("(ifc) access to %s is checked"),$uri));
     $valid = 1;
     closedir($dt);
   }
   
   $this->setValue("ifc_opened", $valid);
-  $this->modify(true,array("ifc_uri", "ifc_uris", "ifc_opened"),true);
+  $this->modify(true,array("ifc_uris", "ifc_opened"),true);
 
   $err = $this->designProcessus();
   AddWarningMsg($err);
@@ -73,9 +60,8 @@ function postModify() {
 
 final protected function scanSource() {
   global $action;
-  $dir = $this->getValue("ifc_uri");
-
-//   $dt = opendir($dir, $this->getContext());
+  $dir = $this->getValue("ifc_uris");
+  $proto = $this->getValue("ifc_mode");
   $dt = opendir($dir);
   if (!$dt) {
     $action->log->error("[".$this->title."]: can't open dir ".$this->getValue("ifc_uris"));
@@ -83,14 +69,29 @@ final protected function scanSource() {
   }
    $nfn = $nfs = $nfc = $nfm = $nfx = array();
   clearstatcache();
-  $root = $this->getValue("ifc_uri");
+  $root = $this->getValue("ifc_uris");
   $ke=0;
   while (false !== ($entry = readdir($dt))) {
-    if (!is_file($root."/".$entry)) continue;
-    $st = stat($root."/".$entry);
+    if (is_dir($root."/".$entry)) continue;
     $nfn[$ke] = $entry;
-    $nfs[$ke] = $st['size']/1024;
-    $nfm[$ke] = date("Y-m-d H:i:s", $st['mtime']);
+
+    switch ($proto) 
+      {
+      case "FS" :
+	$nfs[$ke] = filesize($root."/".$entry);
+	$nfm[$ke] = date("Y-m-d H:i:s", filemtime($root."/".$entry));
+	break;
+	
+      case "FTP":
+	$res = $this->fcFtpFileInfo($entry); 
+	$nfs[$ke] = $res["size"];
+	$nfm[$ke] = date("Y-m-d H:i:s",$res["date"]);
+	break;
+
+      default:
+	$nfs[$ke] = " ";
+	$nfm[$ke] = " ";
+      } 
     $nfx[$ke] = 'N';
     $ke++;
   }
@@ -116,7 +117,7 @@ final protected function scanSource() {
 
     $f = false;
     $p=array_search($v, $ofn);
-    if ($p===false) {
+    if ($p===false || $ofs[$p]!=$nfs[$k]) {
       // new file => added
       foreach ($patterns_v as $kpm=>$vpm) {
 	if (ereg($vpm, $nfn[$k],$reg)) {
@@ -223,7 +224,7 @@ public function PostTransfert(&$fileconnector, $filepath, &$doc) {
 }
 
 
-final public function transfertCxFile($file) {
+final public function transfertCxFile($file,$fromihm=0) {
   global $action;
   
   $err = $this->iPreTransfert($file);
@@ -231,7 +232,14 @@ final public function transfertCxFile($file) {
     return sprintf(_("(ifc) file %s transfert(ipre) error=%s"),$file,$err);
   }
 
-  $fpath = $this->getValue('ifc_path')."/".$file;  
+  switch($this->getValue("ifc_mode")) 
+    {
+    case "FTP" :
+      $fpath = $this->fcFtpLocalFile($file);
+      break;
+    default:
+      $fpath = $this->getValue('ifc_path')."/".$file;  
+    }
   $infos = $this->iGetFileTransf($file);
   $doc = createDoc($this->dbaccess, $infos['fam'], false);
   if (!$doc) $err = sprintf(_("(ifc) can't transfert file %s to family %s"),$file,$infos['fam']);
@@ -245,26 +253,29 @@ final public function transfertCxFile($file) {
       else {
 	$doc->disableEditControl();
 	$attr = $infos['attr'];
-	if ($attr=="") $attr = $doc->GetFirstFileAttributes();
-	$attr = ($attr==false?"":$attr);
+	if ($attr=="") {
+	  $oa = $doc->GetFirstFileAttributes();
+	  $attr = $oa->id;
+	}
 	if ($attr=="") {
 	  $err = sprintf(_("(ifc) file %s : no attribute set and no file/image attribute for family %s"),$file,$infos['fam']);
 	} else {
-	  $err = $doc->storeFile($infos['attr'], $fpath, $file);
+	  error_log("storeFile($attr, $fpath, $file)");
+	  $err = $doc->storeFile($attr, $fpath, $file);
 	  if ($err!="") $err = sprintf(_("(ifc) file %s (fam %s / attr %s) transfert(store) error=%s"),
-				       $file,$infos['fam'],$infos['attr'],$err);
+				       $file,$infos['fam'],$attr,$err);
 	  else {
 	    $doc->add();
 	    if ($err!="") $err = sprintf(_("(ifc) file %s (fam %s / attr %s) transfert(add) error=%s"),
-					 $file,$infos['fam'],$infos['attr'],$err);
+					 $file,$infos['fam'],$attr,$err);
 	    else  {
 	      $err = $doc->postModify();
 	      if ($err!="") $err = sprintf(_("(ifc) file %s (fam %s / attr %s) transfert(post) error=%s"),
-					   $file,$infos['fam'],$infos['attr'],$err);
+					   $file,$infos['fam'],$attr,$err);
 	      else  {
 		$err = $doc->refresh();
 		if ($err!="") $err = sprintf(_("(ifc) file %s (fam %s / attr %s) transfert(refresh) error=%s"),
-					   $file,$infos['fam'],$infos['attr'],$err);
+					   $file,$infos['fam'],$attr,$err);
 	      }
 	    }
 	  }
@@ -278,14 +289,21 @@ final public function transfertCxFile($file) {
   } else {
     $action->log->debug("file $file was transfered");
     $this->setCxFileStatus($file, "I");
-    $this->iPostTransfert($file, $doc);
+    $this->iPostTransfert($file, $fpath, $doc);
     if (method_exists($this, "postTransfert")) $err = $this->PostTransfert($this, $fpath, $doc);
+    if ($fromihm==1) AddWarningMsg(sprintf(_("doc %s was created for file %s"), $doc->id, $file));
   }
-  
+
+  switch ($this->getValue("ifc_mode")) {
+  case "FTP":
+    unlink($fpath);
+    break;
+  }
+ 
   return $err;
 }
 
-final protected function iPostTransfert($file, &$doc) {
+final protected function iPostTransfert($file, $fpath, &$doc) {
   $infos = $this->iGetFileTransf($file);
   if ($infos['dir']>0)  $this->moveCxFile($file, $doc);
   if ($infos['sup']==1)  $this->removeCxFile($file);
@@ -294,7 +312,6 @@ final protected function iPostTransfert($file, &$doc) {
 
 final protected function iPreTransfert($file='') {
   $err = "";
-  $fpath = $this->getValue('ifc_path')."/".$file;
   if (!$this->isValidCxFile($file)) {
     $err = sprintf(_("(ifc) no such file %s"),$file);
   }
@@ -309,8 +326,8 @@ final public function getCxFileContent($file='') {
   if (!$this->isValidCxFile($file)) {
     return sprintf(_("(ifc) no such file %s"),$file);
   }
-  $c = file_get_contents($this->getValue("ifc_uri")."/".$file);
-  if (!$c) $c = sprintf(_("(ifc) can't retrieve content for file %s"),$this->getValue("ifc_uri")."/".$file);
+  $c = file_get_contents($this->getValue("ifc_uris")."/".$file);
+  if (!$c) $c = sprintf(_("(ifc) can't retrieve content for file %s"),$this->getValue("ifc_uris")."/".$file);
   return $c;
 }
 
@@ -318,11 +335,18 @@ final public function copyCxFile($file='', $path='') {
   if (!$this->isValidCxFile($file)) {
     return sprintf(_("(ifc) no such file %s"),$file);
   }
+  switch ($this->getValue("ifc_mode")) {
+  case "FTP":
+    $lpath = $this->fcFtpLocalFile($file);
+    break;
+  default:
+    $lpath =  $this->getValue('ifc_path')."/".$file;
+  }
   if (!is_dir($path)) return sprintf(_("(ifc) can't access directory %s"),$path);
   if (!is_writeable($path)) return sprintf(_("(ifc) can't write into directory %s"),$path);
   
-  $err = copy($this->getValue("ifc_uri")."/".$file, $path);
-  if (!$err) return sprintf(_("(ifc) can't copy file %s to %s"),$this->getValue("ifc_uri")."/".$file,$path);
+  $err = copy($lpath, $path);
+  if (!$err) return sprintf(_("(ifc) can't copy file %s to %s"),$file,$path);
   return "";
 }
 
@@ -390,9 +414,17 @@ final public function moveCxFile($file, &$doc)  {
 
 final public function removeCxFile($file='')  {
   if (!$this->isValidCxFile($file)) return false;
-  $fpath = $this->getValue('ifc_path')."/".$file;
-  if (!unlink($fpath)) {
-    AddWarningMsg(sprintf(_("(ifc) can't unlink file %s"),$fpath));
+  $ret = false;
+  switch ($this->getValue("ifc_mode")) {
+  case "FTP":
+    $ret = $this->fcRemoveFtpFile($file);
+    break;
+  default:
+    $fpath = $this->getValue('ifc_path')."/".$file;
+    $ret = unlink($fpath);
+  }
+  if (!$ret) {
+    AddWarningMsg(sprintf(_("(ifc) can't unlink file %s"),$file));
     $this->setCxFileStatus($file, "D");
   } else {
     $ofp = $this->getTvalue("ifc_c_match");
@@ -428,21 +460,23 @@ final public function removeCxFile($file='')  {
   }
 }
       
-final protected function checkHost() {
+final protected function checkInput($input) {
+  include_once("EXTERNALS/fileconnector.php");
   
   $error_message = "";
   $proposal = array();
-
   $proto = $this->getValue("ifc_mode");
+  $lp = getAvailableProtocols();
+  $needed = explode("|", strtolower($lp[$proto]["needed"]));
 
-  if ($this->getValue("ifc_host")=="" && 
-      ( ($proto=="FTP") || ($proto=="HTTP") || ($proto=="HTTPS")) ) {
-    $error_message = sprintf(_("hostname required for protocol %s"),$this->getValue("ifc_mode"));
-    $proposal[] = _("give server full qualified name or its IP address");
+  if (in_array(strtolower($input), $needed) && ($this->getValue($input)=="")) {
+    $oa = $this->getAttribute($input);
+    $error_message .= sprintf(_("%s required"),$oa->getLabel());
   }
-  return array( "err" => $error_message,
-                "sug" => $proposal );
+  return array( "err" => $error_message );
+
 }
+
 
 final protected function checkFamily() {
   
@@ -527,4 +561,53 @@ final protected function designProcessus() {
     if ($err!='') $err = $dp->refresh();
   }
   return $err;
+}
+
+
+// FTP management ------------------------------------------------------------------------------------
+
+final protected function fcFtpConnexion() {
+  $server = $this->getValue("ifc_host").($this->getValue("ifc_port")==""?"":":".$this->getValue("ifc_port"));
+  $ftpConn = ftp_connect($server);
+  error_log("(FTP) connexion sur $server");
+  return $ftpConn;
+}
+
+final protected function fcFtpLogin($conn) {
+  $user = ($this->getValue("ifc_login")==""?"anonymous":$this->getValue("ifc_login")) ;
+  $passwd = ($this->getValue("ifc_password")==""?"none@nodomain.org":$this->getValue("ifc_password")) ;
+  error_log("(FTP) login $user/$passwd");
+ return ftp_login($conn, $user, $passwd);
+}
+
+final protected function fcFtpFileInfo($file) {
+  $conn = $this->fcFtpConnexion();
+  $login_result = $this->fcFtpLogin($conn);
+  $file = $this->getValue("ifc_path").(substr($this->getValue("ifc_path"), -1)=='/'?'':'/').$file;
+  error_log("(FTP) file info $file");
+  $res["size"] = ftp_size($conn, $file);
+  $res["date"] = ftp_mdtm($conn, $file);
+  ftp_close($conn);
+  return $res;
+}
+
+final protected function fcFtpLocalFile($file) {
+  $conn = $this->fcFtpConnexion();
+  $login_result = $this->fcFtpLogin($conn);
+  $fpath = $this->getValue("ifc_path").(substr($this->getValue("ifc_path"), -1)=='/'?'':'/').$file;
+  $filename="/var/tmp/_freedom_fc".$this->id."-".$file;
+  ftp_get($conn, $filename, $fpath, FTP_BINARY);
+  error_log("(FTP) get $fpath (local $filename)");
+  ftp_close($conn);
+  return $filename;
+}
+
+final protected function fcRemoveFtpFile($file) {
+  $conn = $this->fcFtpConnexion();
+  $login_result = $this->fcFtpLogin($conn);
+  $fpath = $this->getValue("ifc_path").(substr($this->getValue("ifc_path"), -1)=='/'?'':'/').$file;
+  $st = ftp_delete($conn, $fpath);
+  error_log("(FTP) delete $fpath (status=".($st?"OK":"KO"));
+  ftp_close($conn);
+  return $st;
 }

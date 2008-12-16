@@ -37,6 +37,20 @@ function getFamiliesWithFile($dbaccess, $fam) {
   }
   return $tr;
 }
-    
+
+function getAvailableProtocols() {    
+  return array( "FS"  => array("label" => _("file system"),             "needed"=>"ifc_path"),
+		"FTP" => array("label" => _("file transfert protocol"), "needed"=>"ifc_host|ifc_path") 
+		);
+}
+
+function listProtocols() {
+  $p = array();
+  foreach (getAvailableProtocols()  as $k=>$v) {
+    $p[] = "$k|".$v["label"];
+  }
+  return implode($p,",");
+}
+
 
 ?>

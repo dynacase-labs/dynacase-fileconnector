@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-12-12 18:20+0100\n"
+"POT-Creation-Date: 2008-12-16 19:02+0100\n"
 "PO-Revision-Date: 2008-05-26 10:41+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: English <distrib@anakeen.com>\n"
@@ -53,6 +53,10 @@ msgid "(ifc) file %s (fam %s / attr %s) transfert(refresh) error=%s"
 msgstr ""
 
 #, c-format
+msgid "doc %s was created for file %s"
+msgstr ""
+
+#, c-format
 msgid "(ifc) no such file %s"
 msgstr ""
 
@@ -77,10 +81,7 @@ msgid "(ifc) can't unlink file %s"
 msgstr ""
 
 #, c-format
-msgid "hostname required for protocol %s"
-msgstr ""
-
-msgid "give server full qualified name or its IP address"
+msgid "%s required"
 msgstr ""
 
 msgid "valid families are needed"
@@ -111,6 +112,12 @@ msgstr ""
 msgid "state"
 msgstr ""
 
+msgid "file system"
+msgstr ""
+
+msgid "file transfert protocol"
+msgstr ""
+
 #, fuzzy
 msgid "FILECONNECTOR#title"
 msgstr "File Connector"
@@ -135,9 +142,8 @@ msgstr "access"
 msgid "FILECONNECTOR#ifc_mode"
 msgstr "type"
 
-#, fuzzy
-msgid "FILECONNECTOR#ifc_mode#FS"
-msgstr "file system"
+msgid "FILECONNECTOR#ifc_mode#listProtocols()"
+msgstr ""
 
 #, fuzzy
 msgid "FILECONNECTOR#ifc_host"
@@ -622,3 +628,7 @@ msgstr "clear list"
 #, fuzzy
 msgid "FILECONNECTOR#ifc_menu_reset#submenu"
 msgstr "source"
+
+#, fuzzy
+#~ msgid "FILECONNECTOR#ifc_mode#FS"
+#~ msgstr "file system"
