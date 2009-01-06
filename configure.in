@@ -7,7 +7,7 @@
 #   as published by the Free Software Foundation; either version
 #   2 of the License, or (at your option) any later version.
 #
-AC_REVISION($Id: configure.in,v 1.2 2008/12/15 13:12:19 matthieu Exp $)
+AC_REVISION($Id: configure.in,v 1.3 2009/01/06 15:15:13 jerome Exp $)
 dnl
 dnl Process this file with autoconf to produce a configure script.
 dnl
@@ -73,4 +73,5 @@ AC_ARG_WITH(dbport,
 
 AC_OUTPUT(Makefile  \
         freedom-fileconnector.spec \
-	debian/changelog)
+	debian/changelog \
+	info.xml)
