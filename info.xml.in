@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<module name="freedom-fileconnector" version="@VERSION@" release="@RELEASE@" basecomponent="yes">
+<module name="freedom-fileconnector" version="@VERSION@" release="@RELEASE@">
   <description>freedom file connector allow automatic file import in freedom for HTTP, FTP and file system files</description>
   <requires>
     <module name="freedom-core" />
