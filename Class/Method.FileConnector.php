@@ -2,7 +2,7 @@
  * File Connector
  *
  * @author Anakeen 2008
- * @version $Id: Method.FileConnector.php,v 1.5 2008/12/16 18:15:11 marc Exp $
+ * @version $Id: Method.FileConnector.php,v 1.6 2009/01/15 13:22:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package freedom-fileconnector
  */
@@ -97,7 +97,6 @@ final protected function scanSource() {
   }
     
   closedir($dt);
-
   $patterns_n = $this->getTValue('ifc_sl_name');
   $patterns_v = $this->getTValue('ifc_sl_pattern');
   $patterns_f = $this->getTValue('ifc_sl_familyid');
@@ -111,16 +110,24 @@ final protected function scanSource() {
   $ofm = $this->getTvalue("ifc_c_mtime");
   $ofx = $this->getTvalue("ifc_c_state");
 
-  $cfn = $cfs = $cfc = $cfm = $cfx = array();
-  $kk = 0;
-  foreach ($nfn as $k=>$v) {
+  $cfn = $cfs = $cfc = $cfm = $cfx = $cfp = array();
+  $kk = 0;  
 
+  foreach ($nfn as $k=>$v) {
     $f = false;
     $p=array_search($v, $ofn);
     if ($p===false || $ofs[$p]!=$nfs[$k]) {
       // new file => added
       foreach ($patterns_v as $kpm=>$vpm) {
-	if (ereg($vpm, $nfn[$k],$reg)) {
+	$match=@preg_match('/'.$vpm.'/', $nfn[$k]);
+	if ($match===false) {
+	  $matcherror=error_get_last();
+	  $err=sprintf("pattern error %s : %s",$vpm,$matcherror["message"]);
+	  $action->log->error($err);
+	  AddWarningMsg($err);
+	  return;
+	}
+	if ($match) {
 	  $cfp[$kk] = $patterns_n[$kpm];
 	  $action->log->debug("[".$nfn[$k]."] match pattern {".$cfp[$kk]."}");
 	  $cfn[$kk] = $nfn[$k];
@@ -143,23 +150,23 @@ final protected function scanSource() {
       $kk++;
     }
   }
-      
+  
   $this->deleteValue('ifc_c_match');
   $this->deleteValue('ifc_c_name');
   $this->deleteValue('ifc_c_size');
   $this->deleteValue('ifc_c_mtime');
   $this->deleteValue('ifc_c_state');
 
-  $this->setValue('ifc_c_match', $this->_array2val($cfp));
-  $this->setValue('ifc_c_name',  $this->_array2val($cfn));
-  $this->setValue('ifc_c_size',  $this->_array2val($cfs));
-  $this->setValue('ifc_c_mtime', $this->_array2val($cfm));
-  $this->setValue('ifc_c_state', $this->_array2val($cfx));
+  $this->setValue('ifc_c_match', $cfp);
+  $this->setValue('ifc_c_name',  $cfn);
+  $this->setValue('ifc_c_size',  $cfs);
+  $this->setValue('ifc_c_mtime', $cfm);
+  $this->setValue('ifc_c_state', $cfx);
 
   $this->setValue("ifc_lastscan", $this->getTimeDate(0,true));
 
   $this->modify(true, array("ifc_lastscan", 'ifc_c_match',
-			    'ifc_c_key','ifc_c_name','ifc_c_size','ifc_c_mtime','ifc_c_state'), 
+			    'ifc_c_name','ifc_c_size','ifc_c_mtime','ifc_c_state'), 
 		true);
 
   
@@ -171,13 +178,12 @@ final protected function scanSource() {
  */
 final public function resetScan() {
   $this->deleteValue('ifc_c_match');
-  $this->deleteValue('ifc_c_key');
   $this->deleteValue('ifc_c_name');
   $this->deleteValue('ifc_c_size');
   $this->deleteValue('ifc_c_mtime');
   $this->deleteValue('ifc_c_state');
   $this->modify(true, 
-		array('ifc_c_match', 'ifc_c_key','ifc_c_name','ifc_c_size','ifc_c_mtime','ifc_c_state'), 
+		array('ifc_c_match','ifc_c_name','ifc_c_size','ifc_c_mtime','ifc_c_state'), 
 		true);
   return true;
 }
@@ -269,6 +275,7 @@ final public function transfertCxFile($file,$fromihm=0) {
 	    if ($err!="") $err = sprintf(_("(ifc) file %s (fam %s / attr %s) transfert(add) error=%s"),
 					 $file,$infos['fam'],$attr,$err);
 	    else  {
+	      $doc->addComment(sprintf(_("Creation from file connector %s"),$this->getTitle()));
 	      $err = $doc->postModify();
 	      if ($err!="") $err = sprintf(_("(ifc) file %s (fam %s / attr %s) transfert(post) error=%s"),
 					   $file,$infos['fam'],$attr,$err);
@@ -296,7 +303,7 @@ final public function transfertCxFile($file,$fromihm=0) {
 
   switch ($this->getValue("ifc_mode")) {
   case "FTP":
-    unlink($fpath);
+    @unlink($fpath);
     break;
   }
  
@@ -421,7 +428,7 @@ final public function removeCxFile($file='')  {
     break;
   default:
     $fpath = $this->getValue('ifc_path')."/".$file;
-    $ret = unlink($fpath);
+    $ret = @unlink($fpath);
   }
   if (!$ret) {
     AddWarningMsg(sprintf(_("(ifc) can't unlink file %s"),$file));
