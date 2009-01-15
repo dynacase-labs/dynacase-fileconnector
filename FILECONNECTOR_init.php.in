@@ -1,0 +1,13 @@
+<?php
+// ---------------------------------------------------------------
+// $Id: FILECONNECTOR_init.php.in,v 1.1 2009/01/15 13:21:54 eric Exp $
+// $Source: /home/cvsroot/anakeen/freedom/fileconnector/FILECONNECTOR_init.php.in,v $
+// ---------------------------------------------------------------
+
+
+global $app_const;
+
+$app_const= array("INIT" => "yes",
+		  "VERSION" => "@VERSION@-@RELEASE@");
+
+?>
