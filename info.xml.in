@@ -1,7 +1,25 @@
 <?xml version="1.0"?>
 <module name="freedom-fileconnector" version="@VERSION@" release="@RELEASE@">
-  <description>freedom file connector allow automatic file import in freedom for HTTP, FTP and file system files</description>
+
+  <description lang="en">freedom file connector allow automatic file import in freedom for HTTP, FTP and file system files</description>
+
   <requires>
-    <module name="freedom-core" />
+    <module name="freedom" />
   </requires>
+
+  <post-install>
+    <process command="programs/app_post FILECONNECTOR I" />
+    <process command="programs/record_application FILECONNECTOR" />
+    <process command="programs/app_post FILECONNECTOR U" />
+    <process command="programs/update_catalog" />
+  </post-install>
+ 
+  <post-upgrade>
+    <process command="programs/pre_migration FILECONNECTOR" />
+    <process command="programs/app_post FILECONNECTOR U" />
+    <process command="programs/record_application FILECONNECTOR" />
+    <process command="programs/post_migration FILECONNECTOR" />
+    <process command="programs/update_catalog" />
+  </post-upgrade>
+
 </module>
