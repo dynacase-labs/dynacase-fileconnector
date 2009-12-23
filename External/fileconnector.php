@@ -12,10 +12,10 @@ function getFilesAttr($dbaccess,$famid,$name) {
               "state" => _("state"));
   
   $tr = array();
-  
+  $pattern = preg_quote($name);
   $tinter = $doc->GetFileAttributes();
   while(list($k,$v) = each($tinter)) {
-    if (($name == "") ||    (eregi("$name", $v->labelText , $reg)))
+    if (($name == "") ||    (preg_match("/$pattern/i", $v->labelText , $reg)))
       $tr[] = array($v->labelText ,
                     $v->id,
 		    $v->labelText);
