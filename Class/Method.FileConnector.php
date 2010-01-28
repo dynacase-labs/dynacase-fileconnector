@@ -3,7 +3,7 @@
  *
  * @author Anakeen 2008
  * @version $Id: Method.FileConnector.php,v 1.6 2009/01/15 13:22:15 eric Exp $
- * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @license http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License
  * @package freedom-fileconnector
  */
 /**
