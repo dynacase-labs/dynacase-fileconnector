@@ -4,7 +4,6 @@
   <description lang="en">freedom file connector allow automatic file import in freedom for HTTP, FTP and file system files</description>
 
   <requires>
-    <module name="freedom" />
   </requires>
 
   <post-install>
