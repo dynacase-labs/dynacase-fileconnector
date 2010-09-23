@@ -24,7 +24,7 @@ pages_not_xml = info.xml
 
 include $(utildir)/PubRule
 
-TRANSODS += freedom-fileconnector.ods
+TRANSODS += fileconnector.ods
 
 DISTFILES += $(SUBDIR)  $(wildcard *.ods)\
             $(wildcard *.in) \
