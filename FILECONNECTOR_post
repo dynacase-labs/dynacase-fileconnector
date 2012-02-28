@@ -16,7 +16,5 @@ fi
 #post update
 #------------------------------
 if [ "$1" = "U" ] ; then
-
-  $wpub/wsh.php --api=freedom_import --file=$wpub/FILECONNECTOR/fileconnector.ods
-
+  echo
 fi
