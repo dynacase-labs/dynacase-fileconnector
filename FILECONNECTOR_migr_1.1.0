@@ -6,7 +6,7 @@ if [ -z "$pgservice_freedom" ]; then
 fi
 
 PGSERVICE="$pgservice_freedom" psql --set ON_ERROR_STOP=on <<EOF 2>&1
-UPDATE docattr set type='double' where id='ifc_c_size';
+UPDATE docattr set type='double' where id='ifc_c_size' and docid = (select id from docfam where name = 'FILECONNECTOR');
 EOF
 
 RET=$?
