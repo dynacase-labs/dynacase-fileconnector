@@ -1,18 +1,18 @@
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-12-16 19:02+0100\n"
+"POT-Creation-Date: 2012-09-04 11:20+0200\n"
 "PO-Revision-Date: 2008-05-26 10:41+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: English <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #, c-format
-msgid "(ifc) can't access file from %s"
+msgid "%s required"
 msgstr ""
 
 #, c-format
@@ -20,7 +20,19 @@ msgid "(ifc) access to %s is checked"
 msgstr ""
 
 #, c-format
-msgid "(ifc) file %s transfert(ipre) error=%s"
+msgid "(ifc) can't access directory %s"
+msgstr ""
+
+#, c-format
+msgid "(ifc) can't access file from %s"
+msgstr ""
+
+#, c-format
+msgid "(ifc) can't copy file %s to %s"
+msgstr ""
+
+#, c-format
+msgid "(ifc) can't retrieve content for file %s"
 msgstr ""
 
 #, c-format
@@ -28,16 +40,11 @@ msgid "(ifc) can't transfert file %s to family %s"
 msgstr ""
 
 #, c-format
-msgid "(ifc) file %s (fam %s / attr %s) transfert(pre) error=%s"
+msgid "(ifc) can't unlink file %s"
 msgstr ""
 
 #, c-format
-msgid ""
-"(ifc) file %s : no attribute set and no file/image attribute for family %s"
-msgstr ""
-
-#, c-format
-msgid "(ifc) file %s (fam %s / attr %s) transfert(store) error=%s"
+msgid "(ifc) can't write into directory %s"
 msgstr ""
 
 #, c-format
@@ -49,11 +56,24 @@ msgid "(ifc) file %s (fam %s / attr %s) transfert(post) error=%s"
 msgstr ""
 
 #, c-format
+msgid "(ifc) file %s (fam %s / attr %s) transfert(pre) error=%s"
+msgstr ""
+
+#, c-format
 msgid "(ifc) file %s (fam %s / attr %s) transfert(refresh) error=%s"
 msgstr ""
 
 #, c-format
-msgid "doc %s was created for file %s"
+msgid "(ifc) file %s (fam %s / attr %s) transfert(store) error=%s"
+msgstr ""
+
+#, c-format
+msgid ""
+"(ifc) file %s : no attribute set and no file/image attribute for family %s"
+msgstr ""
+
+#, c-format
+msgid "(ifc) file %s transfert(ipre) error=%s"
 msgstr ""
 
 #, c-format
@@ -61,82 +81,104 @@ msgid "(ifc) no such file %s"
 msgstr ""
 
 #, c-format
-msgid "(ifc) can't retrieve content for file %s"
-msgstr ""
-
-#, c-format
-msgid "(ifc) can't access directory %s"
-msgstr ""
-
-#, c-format
-msgid "(ifc) can't write into directory %s"
-msgstr ""
-
-#, c-format
-msgid "(ifc) can't copy file %s to %s"
-msgstr ""
-
-#, c-format
-msgid "(ifc) can't unlink file %s"
-msgstr ""
-
-#, c-format
-msgid "%s required"
-msgstr ""
-
-msgid "valid families are needed"
-msgstr ""
-
-#, c-format
-msgid "family %s have no file or image attribute"
-msgstr ""
-
-msgid "use [...] to select target familie"
-msgstr ""
-
-msgid "family must be selected before"
-msgstr ""
-
-msgid "doctitle"
-msgstr ""
-
-msgid "revdate"
-msgstr ""
-
-msgid "revision"
-msgstr ""
-
-msgid "owner"
-msgstr ""
-
-msgid "state"
-msgstr ""
-
-msgid "file system"
-msgstr ""
-
-msgid "file transfert protocol"
+msgid "Creation from file connector %s"
 msgstr ""
 
 #, fuzzy
-msgid "FILECONNECTOR#title"
-msgstr "File Connector"
+msgid "FILECONNECTOR#ifc_access"
+msgstr "access"
 
 #, fuzzy
-msgid "FILECONNECTOR#ifc_general"
-msgstr "description"
+msgid "FILECONNECTOR#ifc_c_list"
+msgstr "files"
 
 #, fuzzy
-msgid "FILECONNECTOR#ifc_name"
+msgid "FILECONNECTOR#ifc_c_match"
+msgstr "match"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_c_mtime"
+msgstr "modification time"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_c_name"
 msgstr "name"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_c_size"
+msgstr "size (Ko)"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_c_state"
+msgstr "state"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_c_state#D"
+msgstr "deleted"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_c_state#I"
+msgstr "imported"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_c_state#N"
+msgstr "new"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_c_state#U"
+msgstr "unknown"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_content"
+msgstr "content"
 
 #, fuzzy
 msgid "FILECONNECTOR#ifc_descr"
 msgstr "description"
 
 #, fuzzy
-msgid "FILECONNECTOR#ifc_access"
-msgstr "access"
+msgid "FILECONNECTOR#ifc_general"
+msgstr "description"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_host"
+msgstr "host"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_lastscan"
+msgstr "last scan"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_list"
+msgstr "rules"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_login"
+msgstr "login"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_menu_reset"
+msgstr "clear list"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_menu_reset#submenu"
+msgstr "source"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_menu_scandir"
+msgstr "check new"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_menu_scandir#submenu"
+msgstr "source"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_menu_transfert"
+msgstr "import new"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_menu_transfert#submenu"
+msgstr "source"
 
 #, fuzzy
 msgid "FILECONNECTOR#ifc_mode"
@@ -146,32 +188,8 @@ msgid "FILECONNECTOR#ifc_mode#listProtocols()"
 msgstr ""
 
 #, fuzzy
-msgid "FILECONNECTOR#ifc_host"
-msgstr "host"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_port"
-msgstr "port"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_login"
-msgstr "login"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_password"
-msgstr "password"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_path"
-msgstr "path"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_uri"
-msgstr "URI computed"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_uris"
-msgstr "URI computed (secure)"
+msgid "FILECONNECTOR#ifc_name"
+msgstr "name"
 
 #, fuzzy
 msgid "FILECONNECTOR#ifc_opened"
@@ -184,90 +202,6 @@ msgstr "no"
 #, fuzzy
 msgid "FILECONNECTOR#ifc_opened#1"
 msgstr "yes"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_lastscan"
-msgstr "last scan"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_spec"
-msgstr "pattern matching"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_list"
-msgstr "rules"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_sl_name"
-msgstr "name"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_sl_pattern"
-msgstr "pattern"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_sl_familyid"
-msgstr "family ID"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_sl_family"
-msgstr "family"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_sl_attrid"
-msgstr "attr ID"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_sl_attr"
-msgstr "attribute"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_sl_dirid"
-msgstr "dir ID"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_sl_dir"
-msgstr "move to"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_sl_dir#eltitle"
-msgstr "create folder"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_sl_suppr"
-msgstr "suppress after import"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_sl_suppr#0"
-msgstr "no"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_sl_suppr#1"
-msgstr "yes"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_program"
-msgstr "programmation"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_p_run"
-msgstr "actif"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_p_run#0"
-msgstr "no"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_p_run#1"
-msgstr "yes"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_p_procid"
-msgstr "proc ID"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_p_proc"
-msgstr "process"
 
 #, fuzzy
 msgid "FILECONNECTOR#ifc_p_cdateexec"
@@ -288,38 +222,6 @@ msgstr "0"
 #, fuzzy
 msgid "FILECONNECTOR#ifc_p_cperday#1"
 msgstr "1"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_p_cperday#2"
-msgstr "2"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_p_cperday#3"
-msgstr "3"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_p_cperday#4"
-msgstr "4"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_p_cperday#5"
-msgstr "5"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_p_cperday#6"
-msgstr "6"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_p_cperday#7"
-msgstr "7"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_p_cperday#8"
-msgstr "8"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_p_cperday#9"
-msgstr "9"
 
 #, fuzzy
 msgid "FILECONNECTOR#ifc_p_cperday#10"
@@ -362,6 +264,10 @@ msgid "FILECONNECTOR#ifc_p_cperday#19"
 msgstr "19"
 
 #, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperday#2"
+msgstr "2"
+
+#, fuzzy
 msgid "FILECONNECTOR#ifc_p_cperday#20"
 msgstr "20"
 
@@ -402,12 +308,40 @@ msgid "FILECONNECTOR#ifc_p_cperday#29"
 msgstr "29"
 
 #, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperday#3"
+msgstr "3"
+
+#, fuzzy
 msgid "FILECONNECTOR#ifc_p_cperday#30"
 msgstr "30"
 
 #, fuzzy
 msgid "FILECONNECTOR#ifc_p_cperday#31"
 msgstr "31"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperday#4"
+msgstr "4"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperday#5"
+msgstr "5"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperday#6"
+msgstr "6"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperday#7"
+msgstr "7"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperday#8"
+msgstr "8"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperday#9"
+msgstr "9"
 
 #, fuzzy
 msgid "FILECONNECTOR#ifc_p_cperhour"
@@ -420,38 +354,6 @@ msgstr "0"
 #, fuzzy
 msgid "FILECONNECTOR#ifc_p_cperhour#1"
 msgstr "1"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_p_cperhour#2"
-msgstr "2"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_p_cperhour#3"
-msgstr "3"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_p_cperhour#4"
-msgstr "4"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_p_cperhour#5"
-msgstr "5"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_p_cperhour#6"
-msgstr "6"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_p_cperhour#7"
-msgstr "7"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_p_cperhour#8"
-msgstr "8"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_p_cperhour#9"
-msgstr "9"
 
 #, fuzzy
 msgid "FILECONNECTOR#ifc_p_cperhour#10"
@@ -494,6 +396,10 @@ msgid "FILECONNECTOR#ifc_p_cperhour#19"
 msgstr "19"
 
 #, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperhour#2"
+msgstr "2"
+
+#, fuzzy
 msgid "FILECONNECTOR#ifc_p_cperhour#20"
 msgstr "20"
 
@@ -510,16 +416,40 @@ msgid "FILECONNECTOR#ifc_p_cperhour#23"
 msgstr "23"
 
 #, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperhour#3"
+msgstr "3"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperhour#4"
+msgstr "4"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperhour#5"
+msgstr "5"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperhour#6"
+msgstr "6"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperhour#7"
+msgstr "7"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperhour#8"
+msgstr "8"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_cperhour#9"
+msgstr "9"
+
+#, fuzzy
 msgid "FILECONNECTOR#ifc_p_cpermin"
 msgstr "min period"
 
 #, fuzzy
 msgid "FILECONNECTOR#ifc_p_cpermin#0"
 msgstr "0"
-
-#, fuzzy
-msgid "FILECONNECTOR#ifc_p_cpermin#5"
-msgstr "5"
 
 #, fuzzy
 msgid "FILECONNECTOR#ifc_p_cpermin#10"
@@ -554,6 +484,10 @@ msgid "FILECONNECTOR#ifc_p_cpermin#45"
 msgstr "45"
 
 #, fuzzy
+msgid "FILECONNECTOR#ifc_p_cpermin#5"
+msgstr "5"
+
+#, fuzzy
 msgid "FILECONNECTOR#ifc_p_cpermin#50"
 msgstr "50"
 
@@ -562,73 +496,146 @@ msgid "FILECONNECTOR#ifc_p_cpermin#55"
 msgstr "55"
 
 #, fuzzy
-msgid "FILECONNECTOR#ifc_content"
-msgstr "content"
+msgid "FILECONNECTOR#ifc_p_proc"
+msgstr "process"
 
 #, fuzzy
-msgid "FILECONNECTOR#ifc_c_list"
-msgstr "files"
+msgid "FILECONNECTOR#ifc_p_procid"
+msgstr "proc ID"
 
 #, fuzzy
-msgid "FILECONNECTOR#ifc_c_match"
-msgstr "match"
+msgid "FILECONNECTOR#ifc_p_run"
+msgstr "actif"
 
 #, fuzzy
-msgid "FILECONNECTOR#ifc_c_name"
+msgid "FILECONNECTOR#ifc_p_run#0"
+msgstr "no"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_p_run#1"
+msgstr "yes"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_password"
+msgstr "password"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_path"
+msgstr "path"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_port"
+msgstr "port"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_program"
+msgstr "programmation"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_sl_attr"
+msgstr "attribute"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_sl_attrid"
+msgstr "attr ID"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_sl_dir"
+msgstr "move to"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_sl_dir#eltitle"
+msgstr "create folder"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_sl_dirid"
+msgstr "dir ID"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_sl_family"
+msgstr "family"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_sl_familyid"
+msgstr "family ID"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_sl_name"
 msgstr "name"
 
 #, fuzzy
-msgid "FILECONNECTOR#ifc_c_size"
-msgstr "size (Ko)"
+msgid "FILECONNECTOR#ifc_sl_pattern"
+msgstr "pattern"
 
 #, fuzzy
-msgid "FILECONNECTOR#ifc_c_mtime"
-msgstr "modification time"
+msgid "FILECONNECTOR#ifc_sl_suppr"
+msgstr "suppress after import"
 
 #, fuzzy
-msgid "FILECONNECTOR#ifc_c_state"
-msgstr "state"
+msgid "FILECONNECTOR#ifc_sl_suppr#0"
+msgstr "no"
 
 #, fuzzy
-msgid "FILECONNECTOR#ifc_c_state#N"
-msgstr "new"
+msgid "FILECONNECTOR#ifc_sl_suppr#1"
+msgstr "yes"
 
 #, fuzzy
-msgid "FILECONNECTOR#ifc_c_state#I"
-msgstr "imported"
+msgid "FILECONNECTOR#ifc_spec"
+msgstr "pattern matching"
 
 #, fuzzy
-msgid "FILECONNECTOR#ifc_c_state#D"
-msgstr "deleted"
+msgid "FILECONNECTOR#ifc_uris"
+msgstr "URI computed (secure)"
 
 #, fuzzy
-msgid "FILECONNECTOR#ifc_c_state#U"
-msgstr "unknown"
+msgid "FILECONNECTOR#title"
+msgstr "File Connector"
 
-#, fuzzy
-msgid "FILECONNECTOR#ifc_menu_transfert"
-msgstr "import new"
+#, c-format
+msgid "doc %s was created for file %s"
+msgstr ""
 
-#, fuzzy
-msgid "FILECONNECTOR#ifc_menu_transfert#submenu"
-msgstr "source"
+msgid "doctitle"
+msgstr ""
 
-#, fuzzy
-msgid "FILECONNECTOR#ifc_menu_scandir"
-msgstr "check new"
+#, c-format
+msgid "family %s have no file or image attribute"
+msgstr ""
 
-#, fuzzy
-msgid "FILECONNECTOR#ifc_menu_scandir#submenu"
-msgstr "source"
+msgid "family must be selected before"
+msgstr ""
 
-#, fuzzy
-msgid "FILECONNECTOR#ifc_menu_reset"
-msgstr "clear list"
+msgid "file connector"
+msgstr ""
 
-#, fuzzy
-msgid "FILECONNECTOR#ifc_menu_reset#submenu"
-msgstr "source"
+msgid "file system"
+msgstr ""
+
+msgid "file transfert protocol"
+msgstr ""
+
+msgid "owner"
+msgstr ""
+
+msgid "revdate"
+msgstr ""
+
+msgid "revision"
+msgstr ""
+
+msgid "state"
+msgstr ""
+
+msgid "use [...] to select target familie"
+msgstr ""
+
+msgid "valid families are needed"
+msgstr ""
 
 #, fuzzy
 #~ msgid "FILECONNECTOR#ifc_mode#FS"
 #~ msgstr "file system"
+
+#, fuzzy
+#~ msgid "FILECONNECTOR#ifc_uri"
+#~ msgstr "URI computed"

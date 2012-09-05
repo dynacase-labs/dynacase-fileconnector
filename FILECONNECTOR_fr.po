@@ -1,44 +1,51 @@
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-12-16 19:02+0100\n"
-"PO-Revision-Date: 2008-12-16 19:14+0100\n"
+"POT-Creation-Date: 2012-09-04 11:20+0200\n"
+"PO-Revision-Date: 2012-09-04 11:24+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #, c-format
-msgid "(ifc) can't access file from %s"
-msgstr "L'accËs ‡ %s n'est pas possible."
+msgid "%s required"
+msgstr "%s est requis"
 
 #, c-format
 msgid "(ifc) access to %s is checked"
-msgstr "L'accËs ‡ est validÈ."
+msgstr "L'acc√®s √† %s est valid√©."
 
 #, c-format
-msgid "(ifc) file %s transfert(ipre) error=%s"
-msgstr "fichier %s [ipre] erreur [%s]"
+msgid "(ifc) can't access directory %s"
+msgstr "le r√©pertoire %s n'est pas accessible"
+
+#, c-format
+msgid "(ifc) can't access file from %s"
+msgstr "L'acc√®s √† %s n'est pas possible."
+
+#, c-format
+msgid "(ifc) can't copy file %s to %s"
+msgstr "la copie de %s dans %s n'est pas possible"
+
+#, c-format
+msgid "(ifc) can't retrieve content for file %s"
+msgstr "le contenu du fichier %s ne peut pas √™tre r√©cup√©r√©"
 
 #, c-format
 msgid "(ifc) can't transfert file %s to family %s"
 msgstr "Le transfert du fichier %s vers la famille %s est impossible"
 
 #, c-format
-msgid "(ifc) file %s (fam %s / attr %s) transfert(pre) error=%s"
-msgstr "fichier %s (famille %s/attribut %s) [pre] erreur [%s]"
+msgid "(ifc) can't unlink file %s"
+msgstr "la suppression du fichier %s n'est pas possible"
 
 #, c-format
-msgid ""
-"(ifc) file %s : no attribute set and no file/image attribute for family %s"
-msgstr "fichier %s : pas d'attribut fichier/image pour la famille %s"
-
-#, c-format
-msgid "(ifc) file %s (fam %s / attr %s) transfert(store) error=%s"
-msgstr "fichier %s (famille %s/attribut %s) [store] erreur [%s]"
+msgid "(ifc) can't write into directory %s"
+msgstr "l'√©criture dans le r√©pertoire %s n'est pas possible"
 
 #, c-format
 msgid "(ifc) file %s (fam %s / attr %s) transfert(add) error=%s"
@@ -49,116 +56,114 @@ msgid "(ifc) file %s (fam %s / attr %s) transfert(post) error=%s"
 msgstr "fichier %s (famille %s/attribut %s) [post] erreur [%s]"
 
 #, c-format
+msgid "(ifc) file %s (fam %s / attr %s) transfert(pre) error=%s"
+msgstr "fichier %s (famille %s/attribut %s) [pre] erreur [%s]"
+
+#, c-format
 msgid "(ifc) file %s (fam %s / attr %s) transfert(refresh) error=%s"
 msgstr "fichier %s (famille %s/attribut %s) [refresh] erreur [%s]"
 
 #, c-format
-msgid "doc %s was created for file %s"
-msgstr ""
+msgid "(ifc) file %s (fam %s / attr %s) transfert(store) error=%s"
+msgstr "fichier %s (famille %s/attribut %s) [store] erreur [%s]"
+
+#, c-format
+msgid ""
+"(ifc) file %s : no attribute set and no file/image attribute for family %s"
+msgstr "fichier %s : pas d'attribut fichier/image pour la famille %s"
+
+#, c-format
+msgid "(ifc) file %s transfert(ipre) error=%s"
+msgstr "fichier %s [ipre] erreur [%s]"
 
 #, c-format
 msgid "(ifc) no such file %s"
 msgstr "pas de fichier %s"
 
 #, c-format
-msgid "(ifc) can't retrieve content for file %s"
-msgstr "le contenu du fichier %s ne peut pas Ítre rÈcupÈrÈ"
-
-#, c-format
-msgid "(ifc) can't access directory %s"
-msgstr "le rÈpertoire %s n'est pas accessible"
-
-#, c-format
-msgid "(ifc) can't write into directory %s"
-msgstr "l'Ècriture dans le rÈpertoire %s n'est pas possible"
-
-#, c-format
-msgid "(ifc) can't copy file %s to %s"
-msgstr "la copie de %s dans %s n'est pas possible"
-
-#, c-format
-msgid "(ifc) can't unlink file %s"
-msgstr "la suppression du fichier %s n'est pas possible"
-
-#, c-format
-msgid "%s required"
-msgstr ""
-
-msgid "valid families are needed"
-msgstr "les familles valident sont attendues"
-
-#, c-format
-msgid "family %s have no file or image attribute"
-msgstr "la famille %s ne possËde pas d'attribut fichier ou image"
-
-msgid "use [...] to select target familie"
-msgstr "utilisez l'aide ‡ la saisie [...] pour sÈlectionne la famille cible"
-
-msgid "family must be selected before"
-msgstr "la famille doit Ítre sÈlectionnÈe d'abord"
-
-msgid "doctitle"
-msgstr ""
-
-msgid "revdate"
-msgstr ""
-
-msgid "revision"
-msgstr ""
-
-msgid "owner"
-msgstr ""
-
-msgid "state"
-msgstr ""
-
-msgid "file system"
-msgstr ""
-
-msgid "file transfert protocol"
-msgstr ""
-
-msgid "FILECONNECTOR#title"
-msgstr "File Connector"
-
-msgid "FILECONNECTOR#ifc_general"
-msgstr "description"
-
-msgid "FILECONNECTOR#ifc_name"
-msgstr "nom"
-
-msgid "FILECONNECTOR#ifc_descr"
-msgstr "description"
+msgid "Creation from file connector %s"
+msgstr "Cr√©ation √† partir du connecteur de fichier %s"
 
 msgid "FILECONNECTOR#ifc_access"
 msgstr "source"
 
-msgid "FILECONNECTOR#ifc_mode"
-msgstr "mode d'accËs"
+msgid "FILECONNECTOR#ifc_c_list"
+msgstr "listes"
 
-msgid "FILECONNECTOR#ifc_mode#listProtocols()"
-msgstr ""
+msgid "FILECONNECTOR#ifc_c_match"
+msgstr "r√®gle appliqu√©e"
+
+msgid "FILECONNECTOR#ifc_c_mtime"
+msgstr "date de modification"
+
+msgid "FILECONNECTOR#ifc_c_name"
+msgstr "fichier"
+
+msgid "FILECONNECTOR#ifc_c_size"
+msgstr "taille (Ko)"
+
+msgid "FILECONNECTOR#ifc_c_state"
+msgstr "√©tat"
+
+msgid "FILECONNECTOR#ifc_c_state#D"
+msgstr "supprim√©"
+
+msgid "FILECONNECTOR#ifc_c_state#I"
+msgstr "import√©"
+
+msgid "FILECONNECTOR#ifc_c_state#N"
+msgstr "nouveau"
+
+msgid "FILECONNECTOR#ifc_c_state#U"
+msgstr "inconnu"
+
+msgid "FILECONNECTOR#ifc_content"
+msgstr "fichiers √† traiter"
+
+msgid "FILECONNECTOR#ifc_descr"
+msgstr "description"
+
+msgid "FILECONNECTOR#ifc_general"
+msgstr "description"
 
 msgid "FILECONNECTOR#ifc_host"
-msgstr "machine hÙte"
+msgstr "machine h√¥te"
 
-msgid "FILECONNECTOR#ifc_port"
-msgstr "port rÈseau"
+msgid "FILECONNECTOR#ifc_lastscan"
+msgstr "dernier scan"
+
+msgid "FILECONNECTOR#ifc_list"
+msgstr "liste"
 
 msgid "FILECONNECTOR#ifc_login"
 msgstr "login"
 
-msgid "FILECONNECTOR#ifc_password"
-msgstr "password"
+msgid "FILECONNECTOR#ifc_menu_reset"
+msgstr "vider la liste des fichiers"
 
-msgid "FILECONNECTOR#ifc_path"
-msgstr "chemin du rÈpertoire"
+msgid "FILECONNECTOR#ifc_menu_reset#submenu"
+msgstr "source"
 
-msgid "FILECONNECTOR#ifc_uri"
-msgstr "URI calculÈe (cachÈe)"
+msgid "FILECONNECTOR#ifc_menu_scandir"
+msgstr "contr√¥ler les nouveaux"
 
-msgid "FILECONNECTOR#ifc_uris"
-msgstr "URI calculÈe"
+msgid "FILECONNECTOR#ifc_menu_scandir#submenu"
+msgstr "source"
+
+msgid "FILECONNECTOR#ifc_menu_transfert"
+msgstr "importer les nouveaux"
+
+msgid "FILECONNECTOR#ifc_menu_transfert#submenu"
+msgstr "source"
+
+msgid "FILECONNECTOR#ifc_mode"
+msgstr "mode d'acc√®s"
+
+msgid "FILECONNECTOR#ifc_mode#listProtocols()"
+msgstr ""
+
+msgid "FILECONNECTOR#ifc_name"
+msgstr "nom"
 
 msgid "FILECONNECTOR#ifc_opened"
 msgstr "accessible"
@@ -169,107 +174,20 @@ msgstr "non"
 msgid "FILECONNECTOR#ifc_opened#1"
 msgstr "oui"
 
-msgid "FILECONNECTOR#ifc_lastscan"
-msgstr "dernier scan"
-
-msgid "FILECONNECTOR#ifc_spec"
-msgstr "rËgles de transfert"
-
-msgid "FILECONNECTOR#ifc_list"
-msgstr "liste"
-
-msgid "FILECONNECTOR#ifc_sl_name"
-msgstr "rÈfÈrence"
-
-msgid "FILECONNECTOR#ifc_sl_pattern"
-msgstr "pattern"
-
-msgid "FILECONNECTOR#ifc_sl_familyid"
-msgstr "ID famille"
-
-msgid "FILECONNECTOR#ifc_sl_family"
-msgstr "famille"
-
-msgid "FILECONNECTOR#ifc_sl_attrid"
-msgstr "ID attribut"
-
-msgid "FILECONNECTOR#ifc_sl_attr"
-msgstr "attribut"
-
-msgid "FILECONNECTOR#ifc_sl_dirid"
-msgstr "ID destination"
-
-msgid "FILECONNECTOR#ifc_sl_dir"
-msgstr "insÈrer dans"
-
-msgid "FILECONNECTOR#ifc_sl_dir#eltitle"
-msgstr "crÈer un dossier"
-
-msgid "FILECONNECTOR#ifc_sl_suppr"
-msgstr "supprimer aprËs import"
-
-msgid "FILECONNECTOR#ifc_sl_suppr#0"
-msgstr "non"
-
-msgid "FILECONNECTOR#ifc_sl_suppr#1"
-msgstr "oui"
-
-msgid "FILECONNECTOR#ifc_program"
-msgstr "programmation"
-
-msgid "FILECONNECTOR#ifc_p_run"
-msgstr "exÈcution programmÈe"
-
-msgid "FILECONNECTOR#ifc_p_run#0"
-msgstr "non"
-
-msgid "FILECONNECTOR#ifc_p_run#1"
-msgstr "oui"
-
-msgid "FILECONNECTOR#ifc_p_procid"
-msgstr "proc ID"
-
-msgid "FILECONNECTOR#ifc_p_proc"
-msgstr "processus"
-
 msgid "FILECONNECTOR#ifc_p_cdateexec"
-msgstr "date d'exÈcution"
+msgstr "date d'ex√©cution"
 
 msgid "FILECONNECTOR#ifc_p_cdateexec#showempty"
 msgstr "--"
 
 msgid "FILECONNECTOR#ifc_p_cperday"
-msgstr "pÈriode (jours)"
+msgstr "p√©riode (jours)"
 
 msgid "FILECONNECTOR#ifc_p_cperday#0"
 msgstr "0"
 
 msgid "FILECONNECTOR#ifc_p_cperday#1"
 msgstr "1"
-
-msgid "FILECONNECTOR#ifc_p_cperday#2"
-msgstr "2"
-
-msgid "FILECONNECTOR#ifc_p_cperday#3"
-msgstr "3"
-
-msgid "FILECONNECTOR#ifc_p_cperday#4"
-msgstr "4"
-
-msgid "FILECONNECTOR#ifc_p_cperday#5"
-msgstr "5"
-
-msgid "FILECONNECTOR#ifc_p_cperday#6"
-msgstr "6"
-
-msgid "FILECONNECTOR#ifc_p_cperday#7"
-msgstr "7"
-
-msgid "FILECONNECTOR#ifc_p_cperday#8"
-msgstr "8"
-
-msgid "FILECONNECTOR#ifc_p_cperday#9"
-msgstr "9"
 
 msgid "FILECONNECTOR#ifc_p_cperday#10"
 msgstr "10"
@@ -301,6 +219,9 @@ msgstr "18"
 msgid "FILECONNECTOR#ifc_p_cperday#19"
 msgstr "19"
 
+msgid "FILECONNECTOR#ifc_p_cperday#2"
+msgstr "2"
+
 msgid "FILECONNECTOR#ifc_p_cperday#20"
 msgstr "20"
 
@@ -331,44 +252,41 @@ msgstr "28"
 msgid "FILECONNECTOR#ifc_p_cperday#29"
 msgstr "29"
 
+msgid "FILECONNECTOR#ifc_p_cperday#3"
+msgstr "3"
+
 msgid "FILECONNECTOR#ifc_p_cperday#30"
 msgstr "30"
 
 msgid "FILECONNECTOR#ifc_p_cperday#31"
 msgstr "31"
 
+msgid "FILECONNECTOR#ifc_p_cperday#4"
+msgstr "4"
+
+msgid "FILECONNECTOR#ifc_p_cperday#5"
+msgstr "5"
+
+msgid "FILECONNECTOR#ifc_p_cperday#6"
+msgstr "6"
+
+msgid "FILECONNECTOR#ifc_p_cperday#7"
+msgstr "7"
+
+msgid "FILECONNECTOR#ifc_p_cperday#8"
+msgstr "8"
+
+msgid "FILECONNECTOR#ifc_p_cperday#9"
+msgstr "9"
+
 msgid "FILECONNECTOR#ifc_p_cperhour"
-msgstr "pÈriode (heure)"
+msgstr "p√©riode (heure)"
 
 msgid "FILECONNECTOR#ifc_p_cperhour#0"
 msgstr "0"
 
 msgid "FILECONNECTOR#ifc_p_cperhour#1"
 msgstr "1"
-
-msgid "FILECONNECTOR#ifc_p_cperhour#2"
-msgstr "2"
-
-msgid "FILECONNECTOR#ifc_p_cperhour#3"
-msgstr "3"
-
-msgid "FILECONNECTOR#ifc_p_cperhour#4"
-msgstr "4"
-
-msgid "FILECONNECTOR#ifc_p_cperhour#5"
-msgstr "5"
-
-msgid "FILECONNECTOR#ifc_p_cperhour#6"
-msgstr "6"
-
-msgid "FILECONNECTOR#ifc_p_cperhour#7"
-msgstr "7"
-
-msgid "FILECONNECTOR#ifc_p_cperhour#8"
-msgstr "8"
-
-msgid "FILECONNECTOR#ifc_p_cperhour#9"
-msgstr "9"
 
 msgid "FILECONNECTOR#ifc_p_cperhour#10"
 msgstr "10"
@@ -400,6 +318,9 @@ msgstr "18"
 msgid "FILECONNECTOR#ifc_p_cperhour#19"
 msgstr "19"
 
+msgid "FILECONNECTOR#ifc_p_cperhour#2"
+msgstr "2"
+
 msgid "FILECONNECTOR#ifc_p_cperhour#20"
 msgstr "20"
 
@@ -412,14 +333,32 @@ msgstr "22"
 msgid "FILECONNECTOR#ifc_p_cperhour#23"
 msgstr "23"
 
+msgid "FILECONNECTOR#ifc_p_cperhour#3"
+msgstr "3"
+
+msgid "FILECONNECTOR#ifc_p_cperhour#4"
+msgstr "4"
+
+msgid "FILECONNECTOR#ifc_p_cperhour#5"
+msgstr "5"
+
+msgid "FILECONNECTOR#ifc_p_cperhour#6"
+msgstr "6"
+
+msgid "FILECONNECTOR#ifc_p_cperhour#7"
+msgstr "7"
+
+msgid "FILECONNECTOR#ifc_p_cperhour#8"
+msgstr "8"
+
+msgid "FILECONNECTOR#ifc_p_cperhour#9"
+msgstr "9"
+
 msgid "FILECONNECTOR#ifc_p_cpermin"
-msgstr "pÈriode (minutes)"
+msgstr "p√©riode (minutes)"
 
 msgid "FILECONNECTOR#ifc_p_cpermin#0"
 msgstr "0"
-
-msgid "FILECONNECTOR#ifc_p_cpermin#5"
-msgstr "5"
 
 msgid "FILECONNECTOR#ifc_p_cpermin#10"
 msgstr "10"
@@ -445,68 +384,136 @@ msgstr "40"
 msgid "FILECONNECTOR#ifc_p_cpermin#45"
 msgstr "45"
 
+msgid "FILECONNECTOR#ifc_p_cpermin#5"
+msgstr "5"
+
 msgid "FILECONNECTOR#ifc_p_cpermin#50"
 msgstr "50"
 
 msgid "FILECONNECTOR#ifc_p_cpermin#55"
 msgstr "55"
 
-msgid "FILECONNECTOR#ifc_content"
-msgstr "fichiers ‡ traiter"
+msgid "FILECONNECTOR#ifc_p_proc"
+msgstr "processus"
 
-msgid "FILECONNECTOR#ifc_c_list"
-msgstr "listes"
+msgid "FILECONNECTOR#ifc_p_procid"
+msgstr "proc ID"
 
-msgid "FILECONNECTOR#ifc_c_match"
-msgstr "rËgle appliquÈe"
+msgid "FILECONNECTOR#ifc_p_run"
+msgstr "ex√©cution programm√©e"
 
-msgid "FILECONNECTOR#ifc_c_name"
-msgstr "fichier"
+msgid "FILECONNECTOR#ifc_p_run#0"
+msgstr "non"
 
-msgid "FILECONNECTOR#ifc_c_size"
-msgstr "taille (Ko)"
+msgid "FILECONNECTOR#ifc_p_run#1"
+msgstr "oui"
 
-msgid "FILECONNECTOR#ifc_c_mtime"
-msgstr "date de modification"
+msgid "FILECONNECTOR#ifc_password"
+msgstr "password"
 
-msgid "FILECONNECTOR#ifc_c_state"
-msgstr "Ètat"
+msgid "FILECONNECTOR#ifc_path"
+msgstr "chemin du r√©pertoire"
 
-msgid "FILECONNECTOR#ifc_c_state#N"
-msgstr "nouveau"
+msgid "FILECONNECTOR#ifc_port"
+msgstr "port r√©seau"
 
-msgid "FILECONNECTOR#ifc_c_state#I"
-msgstr "importÈ"
+msgid "FILECONNECTOR#ifc_program"
+msgstr "programmation"
 
-msgid "FILECONNECTOR#ifc_c_state#D"
-msgstr "supprimÈ"
+msgid "FILECONNECTOR#ifc_sl_attr"
+msgstr "attribut"
 
-msgid "FILECONNECTOR#ifc_c_state#U"
-msgstr "inconnu"
+msgid "FILECONNECTOR#ifc_sl_attrid"
+msgstr "ID attribut"
 
-msgid "FILECONNECTOR#ifc_menu_transfert"
-msgstr "importer les nouveaux"
+msgid "FILECONNECTOR#ifc_sl_dir"
+msgstr "ins√©rer dans"
 
-msgid "FILECONNECTOR#ifc_menu_transfert#submenu"
-msgstr "source"
+msgid "FILECONNECTOR#ifc_sl_dir#eltitle"
+msgstr "cr√©er un dossier"
 
-msgid "FILECONNECTOR#ifc_menu_scandir"
-msgstr "contrÙler les nouveaux"
+msgid "FILECONNECTOR#ifc_sl_dirid"
+msgstr "ID destination"
 
-msgid "FILECONNECTOR#ifc_menu_scandir#submenu"
-msgstr "source"
+msgid "FILECONNECTOR#ifc_sl_family"
+msgstr "famille"
 
-msgid "FILECONNECTOR#ifc_menu_reset"
-msgstr "vider la liste des fichiers"
+msgid "FILECONNECTOR#ifc_sl_familyid"
+msgstr "ID famille"
 
-msgid "FILECONNECTOR#ifc_menu_reset#submenu"
-msgstr "source"
+msgid "FILECONNECTOR#ifc_sl_name"
+msgstr "r√©f√©rence"
 
-#~ msgid "hostname required for protocol %s"
-#~ msgstr "Un nom de machine est obligatoire pour le protocole %s."
+msgid "FILECONNECTOR#ifc_sl_pattern"
+msgstr "pattern"
+
+msgid "FILECONNECTOR#ifc_sl_suppr"
+msgstr "supprimer apr√®s import"
+
+msgid "FILECONNECTOR#ifc_sl_suppr#0"
+msgstr "non"
+
+msgid "FILECONNECTOR#ifc_sl_suppr#1"
+msgstr "oui"
+
+msgid "FILECONNECTOR#ifc_spec"
+msgstr "r√®gles de transfert"
+
+msgid "FILECONNECTOR#ifc_uris"
+msgstr "URI calcul√©e"
+
+msgid "FILECONNECTOR#title"
+msgstr "File Connector"
+
+#, c-format
+msgid "doc %s was created for file %s"
+msgstr "Le document %s a √©t√© cr√©√© pour le fichier %s"
+
+msgid "doctitle"
+msgstr "Titre du document"
+
+#, c-format
+msgid "family %s have no file or image attribute"
+msgstr "la famille %s ne poss√®de pas d'attribut fichier ou image"
+
+msgid "family must be selected before"
+msgstr "la famille doit √™tre s√©lectionn√©e d'abord"
+
+msgid "file connector"
+msgstr "Connecteur de fichier"
+
+msgid "file system"
+msgstr "syst√®me de fichier"
+
+msgid "file transfert protocol"
+msgstr "Protocol de transfert de fichier"
+
+msgid "owner"
+msgstr "Propri√©taire"
+
+msgid "revdate"
+msgstr "Date de r√©vision"
+
+msgid "revision"
+msgstr "R√©vision"
+
+msgid "state"
+msgstr "√âtat"
+
+msgid "use [...] to select target familie"
+msgstr "utilisez l'aide √† la saisie [...] pour s√©lectionne la famille cible"
+
+msgid "valid families are needed"
+msgstr "les familles valident sont attendues"
+
+#~ msgid "FILECONNECTOR#ifc_mode#FS"
+#~ msgstr "syst√®me de fichier"
+
+#~ msgid "FILECONNECTOR#ifc_uri"
+#~ msgstr "URI calcul√©e (cach√©e)"
 
 #~ msgid "give server full qualified name or its IP address"
 #~ msgstr "Indiquez le nom complet ou l'adresse IP du serveur"
 
-#~ msgid "FILECONNECTOR#ifc_mode#FS"
-#~ msgstr "systËme de fichier"
+#~ msgid "hostname required for protocol %s"
+#~ msgstr "Un nom de machine est obligatoire pour le protocole %s."

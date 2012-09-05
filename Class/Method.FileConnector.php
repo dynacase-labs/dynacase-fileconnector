@@ -74,7 +74,7 @@ Class _FILECONNECTOR extends Doc
             $action->log->error("[" . $this->title . "]: can't open dir " . $this->getValue("ifc_uris"));
             return;
         }
-        $nfn = $nfs = $nfc = $nfm = $nfx = array();
+        $nfn = $nfs = $nfm = $nfx = array();
         clearstatcache();
         $root = $this->getValue("ifc_uris");
         $ke = 0;
@@ -116,7 +116,7 @@ Class _FILECONNECTOR extends Doc
         $ofm = $this->getTvalue("ifc_c_mtime");
         $ofx = $this->getTvalue("ifc_c_state");
         
-        $cfn = $cfs = $cfc = $cfm = $cfx = $cfp = array();
+        $cfn = $cfs = $cfm = $cfx = $cfp = array();
         $kk = 0;
         
         foreach ($nfn as $k => $v) {
@@ -138,7 +138,6 @@ Class _FILECONNECTOR extends Doc
                         $action->log->debug("[" . $nfn[$k] . "] match pattern {" . $cfp[$kk] . "}");
                         $cfn[$kk] = $nfn[$k];
                         $cfs[$kk] = $nfs[$k];
-                        $cfc[$kk] = $nfc[$k];
                         $cfm[$kk] = $nfm[$k];
                         $cfx[$kk] = $nfx[$k];
                         $kk++;
@@ -150,7 +149,6 @@ Class _FILECONNECTOR extends Doc
                 $cfp[$kk] = $ofp[$p];
                 $cfn[$kk] = $ofn[$p];
                 $cfs[$kk] = $ofs[$p];
-                $cfc[$kk] = $ofc[$p];
                 $cfm[$kk] = $ofm[$p];
                 $cfx[$kk] = $ofx[$p];
                 $kk++;
@@ -171,7 +169,7 @@ Class _FILECONNECTOR extends Doc
         
         $this->setValue("ifc_lastscan", $this->getTimeDate(0, true));
         
-        $this->modify(true, array(
+        return $this->modify(true, array(
             "ifc_lastscan",
             'ifc_c_match',
             'ifc_c_name',
@@ -181,8 +179,9 @@ Class _FILECONNECTOR extends Doc
         ) , true);
     }
     /**
+     * @apiExpose
      * reset (clean) list of file to be processes
-     * @return true
+     * @return bool
      */
     final public function resetScan()
     {
@@ -191,24 +190,27 @@ Class _FILECONNECTOR extends Doc
         $this->deleteValue('ifc_c_size');
         $this->deleteValue('ifc_c_mtime');
         $this->deleteValue('ifc_c_state');
-        $this->modify(true, array(
+        $err = $this->modify(true, array(
             'ifc_c_match',
             'ifc_c_name',
             'ifc_c_size',
             'ifc_c_mtime',
             'ifc_c_state'
         ) , true);
-        return true;
+        return $err;
     }
-    
+    /**
+     * @apiExpose
+     * @return bool
+     */
     final public function verifyNewCxFiles()
     {
-        $this->scanSource();
+        $err = $this->scanSource();
         $st = $this->getTValue("ifc_c_state");
         foreach ($st as $k => $v) {
-            if ($v == 'N') return true;
+            if ($v == 'N') return $err;
         }
-        return false;
+        return $err;
     }
     
     final public function getNewCxFiles()
@@ -222,7 +224,10 @@ Class _FILECONNECTOR extends Doc
         }
         return $ret;
     }
-    
+    /**
+     * @apiExpose
+     * @return string
+     */
     final public function transfertNewCxFiles()
     {
         $nf = $this->getNewCxFiles();
@@ -242,7 +247,12 @@ Class _FILECONNECTOR extends Doc
     {
         return "";
     }
-    
+    /**
+     * @apiExpose
+     * @param $file
+     * @param int $fromihm
+     * @return string
+     */
     final public function transfertCxFile($file, $fromihm = 0)
     {
         global $action;
@@ -261,6 +271,7 @@ Class _FILECONNECTOR extends Doc
                 $fpath = $this->getValue('ifc_path') . "/" . $file;
         }
         $infos = $this->iGetFileTransf($file);
+        
         $doc = createDoc($this->dbaccess, $infos['fam'], false);
         if (!$doc) $err = sprintf(_("(ifc) can't transfert file %s to family %s") , $file, $infos['fam']);
         else {
@@ -434,9 +445,14 @@ Class _FILECONNECTOR extends Doc
     {
         $err = "";
         $infos = $this->iGetFileTransf($file);
-        if ($infos["dir"]) $dir = new_Doc($this->dbaccess, $infos["dir"]);
-        if ($dir->isAlive() && $dir->doctype == 'D') {
-            $dir->addFile($doc->initid);
+        if ($infos["dir"]) {
+            /**
+             * @var Dir $dir
+             */
+            $dir = new_Doc($this->dbaccess, $infos["dir"]);
+            if ($dir->isAlive() && $dir->doctype == 'D') {
+                $dir->addFile($doc->initid);
+            }
         }
         return $err;
     }
@@ -494,6 +510,7 @@ Class _FILECONNECTOR extends Doc
                 ) , true);
             }
         }
+        return $ret;
     }
     
     final protected function checkInput($input)
