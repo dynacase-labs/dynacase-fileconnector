@@ -578,7 +578,7 @@ Class _FILECONNECTOR extends Doc
         
         $exist = false;
         if ($this->getValue("ifc_p_procid") > 0) {
-            $dp = new_Doc($this->dbaccess, $this->getValue("ifc_p_procid"));
+            $dp = new_Doc($this->dbaccess, $this->getValue("ifc_p_procid"), true);
             if ($dp->isAlive()) $exist = true;
         }
         
@@ -622,9 +622,13 @@ Class _FILECONNECTOR extends Doc
         
         $err = $dp->modify();
         if ($err != '') {
-            $err = $dp->postModify();
-            if ($err != '') $err = $dp->refresh();
+            return $err;
         }
+        $err = $dp->postModify();
+        if ($err != '') {
+            return $err;
+        }
+        $err = $dp->refresh();
         return $err;
     }
     // FTP management ------------------------------------------------------------------------------------
