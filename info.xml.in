@@ -13,14 +13,14 @@
 
   <post-install>
     <process command="programs/record_application FILECONNECTOR" />
-    <process command="./wsh.php --api=importDocuments --file=./FILECONNECTOR/fileconnector.ods" />
+    <process command="./wsh.php --api=importDocuments --file=./FILECONNECTOR/fileconnector.csv" />
     <process command="programs/update_catalog" />
   </post-install>
  
   <post-upgrade>
     <process command="programs/pre_migration FILECONNECTOR" />
     <process command="programs/record_application FILECONNECTOR" />
-    <process command="./wsh.php --api=importDocuments --file=./FILECONNECTOR/fileconnector.ods" />
+    <process command="./wsh.php --api=importDocuments --file=./FILECONNECTOR/fileconnector.csv" />
     <process command="programs/post_migration FILECONNECTOR" />
     <process command="programs/update_catalog" />
   </post-upgrade>

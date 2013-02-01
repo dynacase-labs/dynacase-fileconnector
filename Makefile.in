@@ -24,7 +24,7 @@ pages_not_xml = info.xml
 
 include $(utildir)/PubRule
 
-TRANSODS += fileconnector.ods
+TRANSCSV += fileconnector.csv
 
 DISTFILES += $(SUBDIR)  $(wildcard *.ods)\
             $(wildcard *.in) \
