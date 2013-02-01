@@ -11,7 +11,7 @@ rootprefix=$(RPM_BUILD_ROOT)
 appname = @APPNAME@
 export pubdir utildir appname applib
 
-TAR = gtar
+TAR = tar
 GZIP_ENV = --best
 
 export targetdir PACKAGE
