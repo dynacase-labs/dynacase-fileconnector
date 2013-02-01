@@ -3,7 +3,7 @@ TYPE;C;;;;;;;;;;;;;;
 USEFOR;S;;;;;;;;;;;;;;
 PROFID;510;;;;;;;;;;;;;;
 CPROFID;504;;;;;;;;;;;;;;
-ICON;freedom-fileconnector.png;;;;;;;;;;;;;;
+ICON;fileconnector.png;;;;;;;;;;;;;;
 METHOD;Method.FileConnector.php;;;;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;order;vis;need;link;phpfile;phpfunc;elink;constraint;options
 ;;;;;;;;;;;;;;;
