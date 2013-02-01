@@ -8,7 +8,7 @@
 function getFilesAttr($dbaccess, $famid, $name)
 {
     
-    if (!$famid) return (_("family must be selected before"));
+    if (!$famid) return (_("(ifc) family must be selected before"));
     $doc = createDoc($dbaccess, $famid, false);
     
     $tr = array();
@@ -45,11 +45,11 @@ function getAvailableProtocols()
 {
     return array(
         "FS" => array(
-            "label" => _("file system") ,
+            "label" => _("(ifc) file system") ,
             "needed" => "ifc_path"
         ) ,
         "FTP" => array(
-            "label" => _("file transfert protocol") ,
+            "label" => _("(ifc) file transfert protocol") ,
             "needed" => "ifc_host|ifc_path"
         )
     );

@@ -295,7 +295,7 @@ Class _FILECONNECTOR extends Doc
                             $doc->add();
                             if ($err != "") $err = sprintf(_("(ifc) file %s (fam %s / attr %s) transfert(add) error=%s") , $file, $infos['fam'], $attr, $err);
                             else {
-                                $doc->addHistoryEntry(sprintf(_("Creation from file connector %s") , $this->getTitle()));
+                                $doc->addHistoryEntry(sprintf(_("(ifc) Creation from file connector %s") , $this->getTitle()));
                                 $err = $doc->postStore();
                                 if ($err != "") $err = sprintf(_("(ifc) file %s (fam %s / attr %s) transfert(post) error=%s") , $file, $infos['fam'], $attr, $err);
                                 else {
@@ -525,7 +525,7 @@ Class _FILECONNECTOR extends Doc
         
         if (in_array(strtolower($input) , $needed) && ($this->getRawValue($input) == "")) {
             $oa = $this->getAttribute($input);
-            $error_message.= sprintf(_("%s required") , $oa->getLabel());
+            $error_message.= sprintf(_("(ifc) %s required") , $oa->getLabel());
         }
         return array(
             "err" => $error_message
