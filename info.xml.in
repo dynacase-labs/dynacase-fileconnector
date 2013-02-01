@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
-<module name="dynacase-fileconnector" version="@VERSION@" release="@RELEASE@" license="@LICENSE@" infopath="http://www.dynacase.org/modules/dynacase-fileconnector/dynacase-fileconnector">
+<module name="dynacase-fileconnector" version="@VERSION@" release="@RELEASE@" license="@LICENSE@">
 
-  <description lang="en">dynacase file connector allow automatic file import in dynacase for HTTP, FTP and file system files</description>
+  <description lang="en">Dynacase file connector allow automatic file import in dynacase for FTP and file system files</description>
 
   <replaces>
         <module name="freedom-fileconnector" />
   </replaces>
 
   <requires>
-    <module name="dynacase-core" comp="ge" version="3.2.0" />
+    <module name="dynacase-core" comp="ge" version="3.2.5" />
   </requires>
 
   <post-install>
@@ -24,14 +24,5 @@
     <process command="programs/post_migration FILECONNECTOR" />
     <process command="programs/update_catalog" />
   </post-upgrade>
-
-  <changelog>
-    <version number="0.2.0-6" date="2010-03-03">
-      <change title="Added infopath link" />
-    </version>
-    <version number="0.2.0-5" date="2009-12-28">
-      <change title="Removed PHP 5.3 deprecated functions" />
-    </version>
-  </changelog>
 
 </module>
