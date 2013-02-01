@@ -1,0 +1,74 @@
+BEGIN;;File Connector;;;FILECONNECTOR;;;;;;;;;;
+TYPE;C;;;;;;;;;;;;;;
+USEFOR;S;;;;;;;;;;;;;;
+PROFID;510;;;;;;;;;;;;;;
+CPROFID;504;;;;;;;;;;;;;;
+ICON;fileconnector.png;;;;;;;;;;;;;;
+METHOD;Method.FileConnector.php;;;;;;;;;;;;;;
+//;idattr;idframe;label;T;A;type;order;vis;need;link;phpfile;phpfunc;elink;constraint;options
+;;;;;;;;;;;;;;;
+ATTR;IFC_GENERAL;;description;N;N;frame;100;W;;;;;;;
+ATTR;IFC_NAME;IFC_GENERAL;name;Y;N;text;110;W;Y;;;;;;
+ATTR;IFC_DESCR;IFC_GENERAL;description;N;Y;longtext;120;W;N;;;;;;
+;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;
+ATTR;IFC_ACCESS;;access;N;N;frame;1100;W;;;;;;;
+ATTR;IFC_MODE;IFC_ACCESS;type;N;N;enum;1110;O;Y;;fileconnector.php;listProtocols();;;bmenu=no|system=yes
+ATTR;IFC_HOST;IFC_ACCESS;host;N;N;text;1120;O;;;;;;::checkInput('ifc_host);
+ATTR;IFC_PORT;IFC_ACCESS;port;N;N;int;1130;O;;;;;;::checkInput('ifc_port);
+ATTR;IFC_PASSIF_MODE;IFC_ACCESS;mode passive;N;N;enum;1135;O;;;;FALSE|no,TRUE|yes;;;
+ATTR;IFC_LOGIN;IFC_ACCESS;login;N;N;text;1140;O;;;;;;::checkInput('ifc_login);
+ATTR;IFC_PASSWORD;IFC_ACCESS;password;N;N;password;1150;O;;;;;;::checkInput('ifc_password);
+ATTR;IFC_PATH;IFC_ACCESS;path;N;Y;text;1160;O;;;;;;::checkInput('ifc_path);
+ATTR;IFC_URIS;IFC_ACCESS;URI computed (secure);N;Y;text;1170;R;;%S%app=FDL&action=FDL_METHOD&id=%ID%&method=::verifyNewCxFiles();;;;;
+ATTR;IFC_OPENED;IFC_ACCESS;is accessible;N;Y;enum;1180;R;;;;0|no,1|yes;;;
+ATTR;IFC_LASTSCAN;IFC_ACCESS;last scan;N;Y;timestamp("%A %d %B %Y %X");1190;R;;;;;;;
+;;;;;;;;;;;;;;;
+ATTR;IFC_SPEC;;pattern matching;N;N;frame;2100;W;;;;;;;
+ATTR;IFC_LIST;IFC_SPEC;rules;N;N;array;2110;W;;;;;;;empty=yes
+ATTR;IFC_SL_NAME;IFC_LIST;name;N;N;text;2120;W;;;;;;;
+ATTR;IFC_SL_PATTERN;IFC_LIST;pattern;N;N;text;2130;W;;;;;;;
+ATTR;IFC_SL_FAMILYID;IFC_LIST;family ID;N;N;docid;2140;H;;;;::getTitle(IFC_SL_FAMILYID):IFC_SL_FAMILY;;::checkFamily();
+ATTR;IFC_SL_FAMILY;IFC_LIST;family;N;N;text;2150;W;;%S%app=FDL&action=FDL_CARD&id=%IFC_SL_FAMILYID%;fileconnector.php;getFamiliesWithFile(D,IFC_SL_FAMILY):IFC_SL_FAMILYID,IFC_SL_FAMILY,IFC_SL_ATTRID,IFC_SL_ATTR;;;
+ATTR;IFC_SL_ATTRID;IFC_LIST;attr ID;N;N;text;2160;H;;;;::getTitle(IFC_SL_FAMILYID):IFC_SL_FAMILY;;;
+ATTR;IFC_SL_ATTR;IFC_LIST;attribute;N;N;text;2170;W;;%S%app=FDL&action=FDL_CARD&id=%IFC_SL_FAMILYID%;fileconnector.php;getFilesAttr(D,IFC_SL_FAMILYID,IFC_SL_ATTR):IFC_SL_ATTRID,IFC_SL_ATTR;;;
+ATTR;IFC_SL_DIRID;IFC_LIST;dir ID;N;N;docid;2180;H;;;;::getTitle(IFC_SL_DIRID):IFC_SL_DIR;;;
+ATTR;IFC_SL_DIR;IFC_LIST;move to;N;N;text;2190;W;;%S%app=FREEDOM&action=FREEDOM_VIEW&dirid=%IFC_SL_DIRID%;fdl.php;lfamily(D,DIR,IFC_SL_DIR):IFC_SL_DIRID,IFC_SL_DIR;%S%app=GENERIC&action=GENERIC_EDIT&classid=DIR;;eltitle=create folder|ltarget=dir
+ATTR;IFC_SL_SUPPR;IFC_LIST;suppress after import;N;N;enum;2200;W;;;;0|no,1|yes;;;bmenu=no|system=yes
+;;;;;;;;;;;;;;;
+ATTR;IFC_PROGRAM;;programmation;N;N;frame;3100;W;;;;;;;
+ATTR;IFC_P_RUN;IFC_PROGRAM;actif;N;Y;enum;3110;W;;;;0|no,1|yes;;;system=yes
+DEFAULT;IFC_P_RUN;0;;;;;;;;;;;;;
+ATTR;IFC_P_PROCID;IFC_PROGRAM;proc ID;N;N;docid;3120;H;;;;;;;
+ATTR;IFC_P_PROC;IFC_PROGRAM;process;N;N;text;3130;R;;%S%app=FDL&action=FDL_CARD&id=%IFC_P_PROCID%;;;;;ltarget=proc
+ATTR;IFC_P_CDATEEXEC;IFC_PROGRAM;exec date;N;N;timestamp;3140;W;;;;;;;showempty=--
+ATTR;IFC_P_CPERDAY;IFC_PROGRAM;day period;N;N;enum;3150;W;;;;0|0,1|1,2|2,3|3,4|4,5|5,6|6,7|7,8|8,9|9,10|10,11|11,12|12,13|13,14|14,15|15,16|16,17|17,18|18,19|19,20|20,21|21,22|22,23|23,24|24,25|25,26|26,27|27,28|28,29|29,30|30,31|31;;;bmenu=no|system=yes
+ATTR;IFC_P_CPERHOUR;IFC_PROGRAM;hour period;N;N;enum;3160;W;;;;0|0,1|1,2|2,3|3,4|4,5|5,6|6,7|7,8|8,9|9,10|10,11|11,12|12,13|13,14|14,15|15,16|16,17|17,18|18,19|19,20|20,21|21,22|22,23|23;;;bmenu=no|system=yes
+ATTR;IFC_P_CPERMIN;IFC_PROGRAM;min period;N;N;enum;3170;W;;;;0|0,5|5,10|10,15|15,20|20,25|25,30|30,35|35,40|40,45|45,50|50,55|55;;;bmenu=no|system=yes
+;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;
+ATTR;IFC_CONTENT;;content;N;N;frame;4100;W;;;;;;;
+ATTR;IFC_C_LIST;IFC_CONTENT;files;N;N;array;4110;R;;;;;;;sorttable=yes
+ATTR;IFC_C_MATCH;IFC_C_LIST;match;N;N;text;4120;R;;;;;;;
+ATTR;IFC_C_NAME;IFC_C_LIST;name;N;N;text;4130;R;;%S%app=FDL&action=FDL_METHOD&id=%ID%&method=::transfertCxFile(%IFC_C_NAME%,1);;;;;
+ATTR;IFC_C_SIZE;IFC_C_LIST;size;N;N;double;4140;R;;;;;;;
+ATTR;IFC_C_MTIME;IFC_C_LIST;modification time;N;N;timestamp;4150;R;;;;;;;
+ATTR;IFC_C_STATE;IFC_C_LIST;state;N;N;enum;4160;R;;;;N|new,I|imported,D|deleted,U|unknown;;;bmenu=no|system=yes
+;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;
+ATTR;IFC_MENU_TRANSFERT;;import new;N;N;menu;100002;R;;::transfertNewCxFiles();;::showSourceMenu();;;submenu=source|ltarget=_self
+ATTR;IFC_MENU_SCANDIR;;check new;N;N;menu;100000;R;;::verifyNewCxFiles();;::showSourceMenu();;;submenu=source|ltarget=_self
+ATTR;IFC_MENU_RESET;;clear list;N;N;menu;100001;R;;::resetScan();;::showSourceMenu();;;submenu=source|ltarget=_self
+;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;
+END;;;;;;;;;;;;;;;

@@ -5,19 +5,19 @@
  * @package FILECONNECTOR
 */
 
-include_once ("FDL/Class.SearchDoc.php");
 
 global $action;
 $dbaccess = $action->getParam("FREEDOM_DB");
 
 $action->log->debug("ifile-scan: start");
-$s = new SearchDoc($dbaccess, "FILECONNECTOR");
-$s->setObjectReturn();
-$t = $s->search();
+$search = new SearchDoc($dbaccess, "FILECONNECTOR");
+$search->setObjectReturn();
+$t = $search->search();
 
-while ($v = $s->nextDoc()) {
-    $action->log->debug("ifile-scan: process " . $v->title);
-    $v->scanSource();
+while ($currentDoc = $search->getNextDoc()) {
+    /* @var $currentDoc _FILECONNECTOR */
+    $action->log->debug("ifile-scan: process " . $currentDoc->title);
+    $currentDoc->scanSource();
 }
 $action->log->debug("ifile-scan: stop");
-?>
+

@@ -11,7 +11,7 @@ rootprefix=$(RPM_BUILD_ROOT)
 appname = @APPNAME@
 export pubdir utildir appname applib
 
-TAR = gtar
+TAR = tar
 GZIP_ENV = --best
 
 export targetdir PACKAGE
@@ -24,7 +24,7 @@ pages_not_xml = info.xml
 
 include $(utildir)/PubRule
 
-TRANSODS += fileconnector.ods
+TRANSCSV += fileconnector.csv
 
 DISTFILES += $(SUBDIR)  $(wildcard *.ods)\
             $(wildcard *.in) \

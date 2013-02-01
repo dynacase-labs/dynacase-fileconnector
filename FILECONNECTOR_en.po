@@ -3,86 +3,118 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-04 11:20+0200\n"
+"POT-Creation-Date: 2013-02-01 17:01+0100\n"
 "PO-Revision-Date: 2008-05-26 10:41+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: English <distrib@anakeen.com>\n"
+"Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: Class/Method.FileConnector.php:528
 #, c-format
-msgid "%s required"
-msgstr ""
+msgid "(ifc) %s required"
+msgstr "%s required"
 
+#: Class/Method.FileConnector.php:298
+#, c-format
+msgid "(ifc) Creation from file connector %s"
+msgstr "Creation from file connector %s"
+
+#: Class/Method.FileConnector.php:49
 #, c-format
 msgid "(ifc) access to %s is checked"
-msgstr ""
+msgstr "access to %s is checked"
 
+#: Class/Method.FileConnector.php:376
 #, c-format
 msgid "(ifc) can't access directory %s"
-msgstr ""
+msgstr "can't access directory %s"
 
+#: Class/Method.FileConnector.php:47
 #, c-format
 msgid "(ifc) can't access file from %s"
-msgstr ""
+msgstr "can't access file from %s"
 
+#: Class/Method.FileConnector.php:384
 #, c-format
 msgid "(ifc) can't copy file %s to %s"
-msgstr ""
+msgstr "can't copy file %s to %s"
 
+#: Class/Method.FileConnector.php:358
 #, c-format
 msgid "(ifc) can't retrieve content for file %s"
-msgstr ""
+msgstr "can't retrieve content for file %s"
 
+#: Class/Method.FileConnector.php:271
 #, c-format
 msgid "(ifc) can't transfert file %s to family %s"
-msgstr ""
+msgstr "can't transfert file %s to family %s"
 
+#: Class/Method.FileConnector.php:475
 #, c-format
 msgid "(ifc) can't unlink file %s"
-msgstr ""
+msgstr "can't unlink file %s"
 
+#: Class/Method.FileConnector.php:379
 #, c-format
 msgid "(ifc) can't write into directory %s"
-msgstr ""
+msgstr "can't write into directory %s"
 
+#: External/fileconnector.php:11
+msgid "(ifc) family must be selected before"
+msgstr "family must be selected before"
+
+#: Class/Method.FileConnector.php:296
 #, c-format
 msgid "(ifc) file %s (fam %s / attr %s) transfert(add) error=%s"
-msgstr ""
+msgstr "file %s (fam %s / attr %s) transfert(add) error=%s"
 
+#: Class/Method.FileConnector.php:300
 #, c-format
 msgid "(ifc) file %s (fam %s / attr %s) transfert(post) error=%s"
-msgstr ""
+msgstr "file %s (fam %s / attr %s) transfert(post) error=%s"
 
+#: Class/Method.FileConnector.php:275
 #, c-format
 msgid "(ifc) file %s (fam %s / attr %s) transfert(pre) error=%s"
-msgstr ""
+msgstr "file %s (fam %s / attr %s) transfert(pre) error=%s"
 
+#: Class/Method.FileConnector.php:303
 #, c-format
 msgid "(ifc) file %s (fam %s / attr %s) transfert(refresh) error=%s"
-msgstr ""
+msgstr "file %s (fam %s / attr %s) transfert(refresh) error=%s"
 
+#: Class/Method.FileConnector.php:293
 #, c-format
 msgid "(ifc) file %s (fam %s / attr %s) transfert(store) error=%s"
-msgstr ""
+msgstr "file %s (fam %s / attr %s) transfert(store) error=%s"
 
+#: Class/Method.FileConnector.php:289
 #, c-format
 msgid ""
 "(ifc) file %s : no attribute set and no file/image attribute for family %s"
-msgstr ""
+msgstr "file %s : no attribute set and no file/image attribute for family %s"
 
+#: Class/Method.FileConnector.php:258
 #, c-format
 msgid "(ifc) file %s transfert(ipre) error=%s"
-msgstr ""
+msgstr "file %s transfert(ipre) error=%s"
 
+#: External/fileconnector.php:48
+msgid "(ifc) file system"
+msgstr "file system"
+
+#: External/fileconnector.php:52
+msgid "(ifc) file transfert protocol"
+msgstr "file transfert protocol (FTP)"
+
+#: Class/Method.FileConnector.php:342 Class/Method.FileConnector.php:355
+#: Class/Method.FileConnector.php:365
 #, c-format
 msgid "(ifc) no such file %s"
-msgstr ""
-
-#, c-format
-msgid "Creation from file connector %s"
-msgstr ""
+msgstr "no such file %s"
 
 #, fuzzy
 msgid "FILECONNECTOR#ifc_access"
@@ -516,6 +548,18 @@ msgid "FILECONNECTOR#ifc_p_run#1"
 msgstr "yes"
 
 #, fuzzy
+msgid "FILECONNECTOR#ifc_passif_mode"
+msgstr "mode passive"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_passif_mode#FALSE"
+msgstr "no"
+
+#, fuzzy
+msgid "FILECONNECTOR#ifc_passif_mode#TRUE"
+msgstr "yes"
+
+#, fuzzy
 msgid "FILECONNECTOR#ifc_password"
 msgstr "password"
 
@@ -591,46 +635,31 @@ msgstr "URI computed (secure)"
 msgid "FILECONNECTOR#title"
 msgstr "File Connector"
 
+#: FILECONNECTOR.app:9
+msgid "FILECONNECTOR:file connector"
+msgstr "File connector"
+
+#: FILECONNECTOR.app:10
+msgid "FILECONNECTOR:file connector desc"
+msgstr ">Dynacase file connector allow automatic file import in dynacase for FTP and file system files"
+
+#: Class/Method.FileConnector.php:319
 #, c-format
 msgid "doc %s was created for file %s"
-msgstr ""
+msgstr "doc %s was created for file %s"
 
-msgid "doctitle"
-msgstr ""
-
+#: Class/Method.FileConnector.php:552
 #, c-format
 msgid "family %s have no file or image attribute"
-msgstr ""
+msgstr "family %s have no file or image attribute"
 
-msgid "family must be selected before"
-msgstr ""
-
-msgid "file connector"
-msgstr ""
-
-msgid "file system"
-msgstr ""
-
-msgid "file transfert protocol"
-msgstr ""
-
-msgid "owner"
-msgstr ""
-
-msgid "revdate"
-msgstr ""
-
-msgid "revision"
-msgstr ""
-
-msgid "state"
-msgstr ""
-
+#: Class/Method.FileConnector.php:559
 msgid "use [...] to select target familie"
-msgstr ""
+msgstr "use [...] to select target familie"
 
+#: Class/Method.FileConnector.php:544 Class/Method.FileConnector.php:549
 msgid "valid families are needed"
-msgstr ""
+msgstr "valid families are needed"
 
 #, fuzzy
 #~ msgid "FILECONNECTOR#ifc_mode#FS"
