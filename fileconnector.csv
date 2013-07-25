@@ -4,7 +4,8 @@ USEFOR;S;;;;;;;;;;;;;;
 PROFID;510;;;;;;;;;;;;;;
 CPROFID;504;;;;;;;;;;;;;;
 ICON;fileconnector.png;;;;;;;;;;;;;;
-METHOD;Method.FileConnector.php;;;;;;;;;;;;;;
+METHOD;;;;;;;;;;;;;;;
+CLASS;Dcp\Fileconnector\Fileconnector;;;;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;order;vis;need;link;phpfile;phpfunc;elink;constraint;options
 ;;;;;;;;;;;;;;;
 ATTR;IFC_GENERAL;;description;N;N;frame;100;W;;;;;;;

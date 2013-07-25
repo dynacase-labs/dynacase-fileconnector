@@ -4,136 +4,141 @@ msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-02-01 17:01+0100\n"
-"PO-Revision-Date: 2012-09-04 11:24+0200\n"
+"PO-Revision-Date: 2013-07-24 16:34+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
-"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
 
-#: Class/Method.FileConnector.php:528
 #, c-format
 msgid "(ifc) %s required"
 msgstr "%s est requis"
 
-#: Class/Method.FileConnector.php:298
 #, c-format
 msgid "(ifc) Creation from file connector %s"
 msgstr "Création à partir du connecteur de fichier %s"
 
-#: Class/Method.FileConnector.php:49
 #, c-format
 msgid "(ifc) access to %s is checked"
 msgstr "L'accès à %s est validé."
 
-#: Class/Method.FileConnector.php:376
 #, c-format
 msgid "(ifc) can't access directory %s"
 msgstr "le répertoire %s n'est pas accessible"
 
-#: Class/Method.FileConnector.php:47
 #, c-format
 msgid "(ifc) can't access file from %s"
 msgstr "L'accès à %s n'est pas possible."
 
-#: Class/Method.FileConnector.php:384
 #, c-format
 msgid "(ifc) can't copy file %s to %s"
 msgstr "la copie de %s dans %s n'est pas possible"
 
-#: Class/Method.FileConnector.php:358
 #, c-format
 msgid "(ifc) can't retrieve content for file %s"
 msgstr "le contenu du fichier %s ne peut pas être récupéré"
 
-#: Class/Method.FileConnector.php:271
 #, c-format
 msgid "(ifc) can't transfert file %s to family %s"
 msgstr "Le transfert du fichier %s vers la famille %s est impossible"
 
-#: Class/Method.FileConnector.php:475
 #, c-format
 msgid "(ifc) can't unlink file %s"
 msgstr "la suppression du fichier %s n'est pas possible"
 
-#: Class/Method.FileConnector.php:379
 #, c-format
 msgid "(ifc) can't write into directory %s"
 msgstr "l'écriture dans le répertoire %s n'est pas possible"
 
-#: External/fileconnector.php:11
 msgid "(ifc) family must be selected before"
 msgstr "la famille doit être sélectionnée d'abord"
 
-#: Class/Method.FileConnector.php:296
 #, c-format
 msgid "(ifc) file %s (fam %s / attr %s) transfert(add) error=%s"
 msgstr "fichier %s (famille %s/attribut %s) [add] erreur [%s]"
 
-#: Class/Method.FileConnector.php:300
 #, c-format
 msgid "(ifc) file %s (fam %s / attr %s) transfert(post) error=%s"
 msgstr "fichier %s (famille %s/attribut %s) [post] erreur [%s]"
 
-#: Class/Method.FileConnector.php:275
 #, c-format
 msgid "(ifc) file %s (fam %s / attr %s) transfert(pre) error=%s"
 msgstr "fichier %s (famille %s/attribut %s) [pre] erreur [%s]"
 
-#: Class/Method.FileConnector.php:303
 #, c-format
 msgid "(ifc) file %s (fam %s / attr %s) transfert(refresh) error=%s"
 msgstr "fichier %s (famille %s/attribut %s) [refresh] erreur [%s]"
 
-#: Class/Method.FileConnector.php:293
 #, c-format
 msgid "(ifc) file %s (fam %s / attr %s) transfert(store) error=%s"
 msgstr "fichier %s (famille %s/attribut %s) [store] erreur [%s]"
 
-#: Class/Method.FileConnector.php:289
 #, c-format
 msgid ""
 "(ifc) file %s : no attribute set and no file/image attribute for family %s"
 msgstr "fichier %s : pas d'attribut fichier/image pour la famille %s"
 
-#: Class/Method.FileConnector.php:258
 #, c-format
 msgid "(ifc) file %s transfert(ipre) error=%s"
 msgstr "fichier %s [ipre] erreur [%s]"
 
-#: External/fileconnector.php:48
 msgid "(ifc) file system"
 msgstr "système de fichier"
 
-#: External/fileconnector.php:52
 msgid "(ifc) file transfert protocol"
 msgstr "Protocol de transfert de fichier (FTP)"
 
-#: Class/Method.FileConnector.php:342 Class/Method.FileConnector.php:355
-#: Class/Method.FileConnector.php:365
 #, c-format
 msgid "(ifc) no such file %s"
 msgstr "pas de fichier %s"
 
+msgid "FILECONNECTOR:file connector"
+msgstr "Connecteur de fichier"
+
+msgid "FILECONNECTOR:file connector desc"
+msgstr "Permet d'importer des éléments d'un FTP ou des fichiers"
+
+#, c-format
+msgid "doc %s was created for file %s"
+msgstr "Le document %s a été créé pour le fichier %s"
+
+#, c-format
+msgid "family %s have no file or image attribute"
+msgstr "la famille %s ne possède pas d'attribut fichier ou image"
+
+msgid "use [...] to select target familie"
+msgstr "utilisez l'aide à la saisie [...] pour sélectionne la famille cible"
+
+msgid "valid families are needed"
+msgstr "les familles valident sont attendues"
+
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_access"
 msgstr "source"
 
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_c_list"
 msgstr "listes"
 
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_c_match"
 msgstr "règle appliquée"
 
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_c_mtime"
 msgstr "date de modification"
 
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_c_name"
 msgstr "fichier"
 
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_c_size"
 msgstr "taille (Ko)"
 
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_c_state"
 msgstr "état"
 
@@ -149,54 +154,64 @@ msgstr "nouveau"
 msgid "FILECONNECTOR#ifc_c_state#U"
 msgstr "inconnu"
 
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_content"
 msgstr "fichiers à traiter"
 
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_descr"
 msgstr "description"
 
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_general"
 msgstr "description"
 
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_host"
 msgstr "machine hôte"
 
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_lastscan"
 msgstr "dernier scan"
 
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_list"
 msgstr "liste"
 
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_login"
 msgstr "login"
 
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_menu_reset"
 msgstr "vider la liste des fichiers"
 
 msgid "FILECONNECTOR#ifc_menu_reset#submenu"
 msgstr "source"
 
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_menu_scandir"
 msgstr "contrôler les nouveaux"
 
 msgid "FILECONNECTOR#ifc_menu_scandir#submenu"
 msgstr "source"
 
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_menu_transfert"
 msgstr "importer les nouveaux"
 
 msgid "FILECONNECTOR#ifc_menu_transfert#submenu"
 msgstr "source"
 
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_mode"
 msgstr "mode d'accès"
 
-msgid "FILECONNECTOR#ifc_mode#listProtocols()"
-msgstr ""
-
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_name"
 msgstr "nom"
 
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_opened"
 msgstr "accessible"
 
@@ -206,12 +221,14 @@ msgstr "non"
 msgid "FILECONNECTOR#ifc_opened#1"
 msgstr "oui"
 
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_p_cdateexec"
 msgstr "date d'exécution"
 
 msgid "FILECONNECTOR#ifc_p_cdateexec#showempty"
 msgstr "--"
 
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_p_cperday"
 msgstr "période (jours)"
 
@@ -311,6 +328,7 @@ msgstr "8"
 msgid "FILECONNECTOR#ifc_p_cperday#9"
 msgstr "9"
 
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_p_cperhour"
 msgstr "période (heure)"
 
@@ -386,6 +404,7 @@ msgstr "8"
 msgid "FILECONNECTOR#ifc_p_cperhour#9"
 msgstr "9"
 
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_p_cpermin"
 msgstr "période (minutes)"
 
@@ -425,12 +444,15 @@ msgstr "50"
 msgid "FILECONNECTOR#ifc_p_cpermin#55"
 msgstr "55"
 
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_p_proc"
 msgstr "processus"
 
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_p_procid"
 msgstr "proc ID"
 
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_p_run"
 msgstr "exécution programmée"
 
@@ -440,57 +462,68 @@ msgstr "non"
 msgid "FILECONNECTOR#ifc_p_run#1"
 msgstr "oui"
 
-#, fuzzy
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_passif_mode"
 msgstr "mode passif"
 
-#, fuzzy
 msgid "FILECONNECTOR#ifc_passif_mode#FALSE"
 msgstr "non"
 
-#, fuzzy
 msgid "FILECONNECTOR#ifc_passif_mode#TRUE"
 msgstr "oui"
 
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_password"
 msgstr "password"
 
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_path"
 msgstr "chemin du répertoire"
 
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_port"
 msgstr "port réseau"
 
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_program"
 msgstr "programmation"
 
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_sl_attr"
 msgstr "attribut"
 
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_sl_attrid"
 msgstr "ID attribut"
 
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_sl_dir"
 msgstr "insérer dans"
 
 msgid "FILECONNECTOR#ifc_sl_dir#eltitle"
 msgstr "créer un dossier"
 
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_sl_dirid"
 msgstr "ID destination"
 
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_sl_family"
 msgstr "famille"
 
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_sl_familyid"
 msgstr "ID famille"
 
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_sl_name"
 msgstr "référence"
 
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_sl_pattern"
 msgstr "pattern"
 
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_sl_suppr"
 msgstr "supprimer après import"
 
@@ -500,40 +533,19 @@ msgstr "non"
 msgid "FILECONNECTOR#ifc_sl_suppr#1"
 msgstr "oui"
 
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_spec"
 msgstr "règles de transfert"
 
+#: fileconnector.csv
 msgid "FILECONNECTOR#ifc_uris"
 msgstr "URI calculée"
 
 msgid "FILECONNECTOR#title"
 msgstr "File Connector"
 
-#: FILECONNECTOR.app:9
-msgid "FILECONNECTOR:file connector"
-msgstr "Connecteur de fichier"
-
-#: FILECONNECTOR.app:10
-msgid "FILECONNECTOR:file connector desc"
-msgstr "Permet d'importer des éléments d'un FTP ou des fichiers"
-
-#: Class/Method.FileConnector.php:319
-#, c-format
-msgid "doc %s was created for file %s"
-msgstr "Le document %s a été créé pour le fichier %s"
-
-#: Class/Method.FileConnector.php:552
-#, c-format
-msgid "family %s have no file or image attribute"
-msgstr "la famille %s ne possède pas d'attribut fichier ou image"
-
-#: Class/Method.FileConnector.php:559
-msgid "use [...] to select target familie"
-msgstr "utilisez l'aide à la saisie [...] pour sélectionne la famille cible"
-
-#: Class/Method.FileConnector.php:544 Class/Method.FileConnector.php:549
-msgid "valid families are needed"
-msgstr "les familles valident sont attendues"
+msgid "FILECONNECTOR#ifc_mode#listProtocols()"
+msgstr ""
 
 #~ msgid "%s required"
 #~ msgstr "%s est requis"
