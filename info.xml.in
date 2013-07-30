@@ -8,20 +8,20 @@
   </replaces>
 
   <requires>
-    <module name="dynacase-core" comp="ge" version="3.2.5" />
+    <module name="dynacase-core" comp="ge" version="3.2.10" />
   </requires>
 
   <post-install>
-    <process command="programs/record_application FILECONNECTOR" />
-    <process command="./wsh.php --api=importDocuments --file=./FILECONNECTOR/fileconnector.csv" />
+    <process command="programs/record_application @APPNAME@" />
+    <process command="./wsh.php --api=importDocuments --file=./@APPNAME@/fileconnector.csv" />
     <process command="programs/update_catalog" />
   </post-install>
  
   <post-upgrade>
-    <process command="programs/pre_migration FILECONNECTOR" />
-    <process command="programs/record_application FILECONNECTOR" />
-    <process command="./wsh.php --api=importDocuments --file=./FILECONNECTOR/fileconnector.csv" />
-    <process command="programs/post_migration FILECONNECTOR" />
+    <process command="programs/pre_migration  @APPNAME@" />
+    <process command="programs/record_application  @APPNAME@" />
+    <process command="./wsh.php --api=importDocuments --file=./ @APPNAME@/fileconnector.csv" />
+    <process command="programs/post_migration  @APPNAME@" />
     <process command="programs/update_catalog" />
   </post-upgrade>
 

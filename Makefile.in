@@ -18,17 +18,24 @@ export targetdir PACKAGE
 
 
 #SUBDIR= Class Zone Action External Api Images 
-SUBDIR=Class Api Images External
+SUBDIR=Class Api Images External locale
 
 pages_not_xml = info.xml
 
 include $(utildir)/PubRule
 
-TRANSCSV += fileconnector.csv
+TRANSFAM +=fileconnector.csv
 
 DISTFILES += $(SUBDIR)  $(wildcard *.ods)\
             $(wildcard *.in) \
             VERSION RELEASE  \
-	    $(APPNAME)_en.po $(APPNAME)_fr.po 
+	    $(appname)_en.po $(appname)_fr.po 
 
+clean:
+	/bin/rm -f *.*~ config.* Makefile configure info.xml\
+		$(PACKAGE)-$(VERSION)*.webinst \
+		$(appname)_init.php
+	/bin/rm -fr autom4te.cache 
 
+stub:
+	php  $(utildir)/genStubFamilyClass.php fileconnector.csv > Class/stubFileconnectorFamilies.php

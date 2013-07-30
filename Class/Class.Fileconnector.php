@@ -4,43 +4,40 @@
  * @license http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License
  * @package FILECONNECTOR
 */
+
+namespace Dcp\Fileconnector;
+use \Dcp\AttributeIdentifiers as Attributes;
+use \Dcp\AttributeIdentifiers\Fileconnector as MyAttributes;
 /**
  * File Connector
  */
-/**
- * @begin-method-ignore
- * this part will be deleted when construct document class until end-method-ignore
- */
-Class _FILECONNECTOR extends Doc
+Class Fileconnector extends \Dcp\Family\Document
 {
-    /*
-     * @end-method-ignore
-    */
     
-    function postStore()
+    public function postStore()
     {
         // compute URI
-        switch ($this->getRawValue("ifc_mode")) {
+        switch ($this->getRawValue(MyAttributes::ifc_mode)) {
             case "FTP":
-                $uri = strtolower($this->getRawValue("ifc_mode")) . "://";
-                $uri.= ($this->getRawValue("ifc_login") == "" ? "anonymous" : $this->getRawValue("ifc_login"));
+                $uri = strtolower($this->getRawValue(MyAttributes::ifc_mode)) . "://";
+                $uri.= ($this->getRawValue(MyAttributes::ifc_login) == "" ? "anonymous" : $this->getRawValue(MyAttributes::ifc_login));
                 $uri.= ":*********";
                 $uri.= "@";
-                $uri.= $this->getRawValue("ifc_host");
-                if ($this->getRawValue("ifc_port") != "") {
-                    $uri.= ":" . $this->getRawValue("ifc_port");
+                $uri.= $this->getRawValue(MyAttributes::ifc_host);
+                if ($this->getRawValue(MyAttributes::ifc_port) != "") {
+                    $uri.= ":" . $this->getRawValue(MyAttributes::ifc_port);
                 }
-                $uri.= $this->getRawValue("ifc_path");
+                $uri.= $this->getRawValue(MyAttributes::ifc_path);
                 break;
 
             case "FS":
-                $uri = $this->getRawValue("ifc_path");
+                $uri = $this->getRawValue(MyAttributes::ifc_path);
                 break;
 
             default:
                 $uri = "-unknown protocol-";
         }
-        $this->setValue("ifc_uris", $uri);
+        $this->setValue(MyAttributes::ifc_uris, $uri);
         $valid = 0;
         $dt = opendir($uri);
         if (!$dt) {
@@ -51,10 +48,10 @@ Class _FILECONNECTOR extends Doc
             closedir($dt);
         }
         
-        $this->setValue("ifc_opened", $valid);
+        $this->setValue(MyAttributes::ifc_opened, $valid);
         $this->modify(true, array(
-            "ifc_uris",
-            "ifc_opened"
+            MyAttributes::ifc_uris,
+            MyAttributes::ifc_opened
         ) , true);
         
         $err = $this->designProcessus();
@@ -66,16 +63,16 @@ Class _FILECONNECTOR extends Doc
     final public function scanSource()
     {
         global $action;
-        $dir = $this->getRawValue("ifc_uris");
-        $proto = $this->getRawValue("ifc_mode");
+        $dir = $this->getRawValue(MyAttributes::ifc_uris);
+        $proto = $this->getRawValue(MyAttributes::ifc_mode);
         $dt = opendir($dir);
         if (!$dt) {
-            $action->log->error("[" . $this->title . "]: can't open dir " . $this->getRawValue("ifc_uris"));
+            $action->log->error("[" . $this->title . "]: can't open dir " . $this->getRawValue(MyAttributes::ifc_uris));
             return null;
         }
         $nfn = $nfs = $nfm = $nfx = array();
         clearstatcache();
-        $root = $this->getRawValue("ifc_uris");
+        $root = $this->getRawValue(MyAttributes::ifc_uris);
         $ke = 0;
         while (false !== ($entry = readdir($dt))) {
             if (is_dir($root . "/" . $entry)) continue;
@@ -102,14 +99,14 @@ Class _FILECONNECTOR extends Doc
         }
         
         closedir($dt);
-        $patterns_n = $this->getMultipleRawValues('ifc_sl_name');
-        $patterns_v = $this->getMultipleRawValues('ifc_sl_pattern');
+        $patterns_n = $this->getMultipleRawValues(MyAttributes::ifc_sl_name);
+        $patterns_v = $this->getMultipleRawValues(MyAttributes::ifc_sl_pattern);
         
-        $ofp = $this->getMultipleRawValues("ifc_c_match");
-        $ofn = $this->getMultipleRawValues("ifc_c_name");
-        $ofs = $this->getMultipleRawValues("ifc_c_size");
-        $ofm = $this->getMultipleRawValues("ifc_c_mtime");
-        $ofx = $this->getMultipleRawValues("ifc_c_state");
+        $ofp = $this->getMultipleRawValues(MyAttributes::ifc_c_match);
+        $ofn = $this->getMultipleRawValues(MyAttributes::ifc_c_name);
+        $ofs = $this->getMultipleRawValues(MyAttributes::ifc_c_size);
+        $ofm = $this->getMultipleRawValues(MyAttributes::ifc_c_mtime);
+        $ofx = $this->getMultipleRawValues(MyAttributes::ifc_c_state);
         
         $cfn = $cfs = $cfm = $cfx = $cfp = array();
         $kk = 0;
@@ -149,27 +146,27 @@ Class _FILECONNECTOR extends Doc
             }
         }
         
-        $this->clearValue('ifc_c_match');
-        $this->clearValue('ifc_c_name');
-        $this->clearValue('ifc_c_size');
-        $this->clearValue('ifc_c_mtime');
-        $this->clearValue('ifc_c_state');
+        $this->clearValue(MyAttributes::ifc_c_match);
+        $this->clearValue(MyAttributes::ifc_c_name);
+        $this->clearValue(MyAttributes::ifc_c_size);
+        $this->clearValue(MyAttributes::ifc_c_mtime);
+        $this->clearValue(MyAttributes::ifc_c_state);
         
-        $this->setValue('ifc_c_match', $cfp);
-        $this->setValue('ifc_c_name', $cfn);
-        $this->setValue('ifc_c_size', $cfs);
-        $this->setValue('ifc_c_mtime', $cfm);
-        $this->setValue('ifc_c_state', $cfx);
+        $this->setValue(MyAttributes::ifc_c_match, $cfp);
+        $this->setValue(MyAttributes::ifc_c_name, $cfn);
+        $this->setValue(MyAttributes::ifc_c_size, $cfs);
+        $this->setValue(MyAttributes::ifc_c_mtime, $cfm);
+        $this->setValue(MyAttributes::ifc_c_state, $cfx);
         
-        $this->setValue("ifc_lastscan", $this->getTimeDate(0, true));
+        $this->setValue(MyAttributes::ifc_lastscan, $this->getTimeDate(0, true));
         
         return $this->modify(true, array(
-            "ifc_lastscan",
-            'ifc_c_match',
-            'ifc_c_name',
-            'ifc_c_size',
-            'ifc_c_mtime',
-            'ifc_c_state'
+            MyAttributes::ifc_lastscan,
+            MyAttributes::ifc_c_match,
+            MyAttributes::ifc_c_name,
+            MyAttributes::ifc_c_size,
+            MyAttributes::ifc_c_mtime,
+            MyAttributes::ifc_c_state
         ) , true);
     }
     /**
@@ -179,17 +176,17 @@ Class _FILECONNECTOR extends Doc
      */
     final public function resetScan()
     {
-        $this->clearValue('ifc_c_match');
-        $this->clearValue('ifc_c_name');
-        $this->clearValue('ifc_c_size');
-        $this->clearValue('ifc_c_mtime');
-        $this->clearValue('ifc_c_state');
+        $this->clearValue(MyAttributes::ifc_c_match);
+        $this->clearValue(MyAttributes::ifc_c_name);
+        $this->clearValue(MyAttributes::ifc_c_size);
+        $this->clearValue(MyAttributes::ifc_c_mtime);
+        $this->clearValue(MyAttributes::ifc_c_state);
         $err = $this->modify(true, array(
-            'ifc_c_match',
-            'ifc_c_name',
-            'ifc_c_size',
-            'ifc_c_mtime',
-            'ifc_c_state'
+            MyAttributes::ifc_c_match,
+            MyAttributes::ifc_c_name,
+            MyAttributes::ifc_c_size,
+            MyAttributes::ifc_c_mtime,
+            MyAttributes::ifc_c_state
         ) , true);
         return $err;
     }
@@ -200,7 +197,7 @@ Class _FILECONNECTOR extends Doc
     final public function verifyNewCxFiles()
     {
         $err = $this->scanSource();
-        $st = $this->getMultipleRawValues("ifc_c_state");
+        $st = $this->getMultipleRawValues(MyAttributes::ifc_c_state);
         foreach ($st as $v) {
             if ($v == 'N') return $err;
         }
@@ -211,8 +208,8 @@ Class _FILECONNECTOR extends Doc
     {
         $ret = array();
         $this->scanSource();
-        $st = $this->getMultipleRawValues("ifc_c_state");
-        $fn = $this->getMultipleRawValues("ifc_c_name");
+        $st = $this->getMultipleRawValues(MyAttributes::ifc_c_state);
+        $fn = $this->getMultipleRawValues(MyAttributes::ifc_c_name);
         foreach ($st as $k => $v) {
             if ($v == 'N') {
                 $ret[] = $fn[$k];
@@ -233,12 +230,12 @@ Class _FILECONNECTOR extends Doc
         }
         return $err;
     }
-
+    
     public function PreTransfert(&$fileconnector, $filepath, &$doc)
     {
         return "";
     }
-
+    
     public function PostTransfert(&$fileconnector, $filepath, &$doc)
     {
         return "";
@@ -258,12 +255,13 @@ Class _FILECONNECTOR extends Doc
             return sprintf(_("(ifc) file %s transfert(ipre) error=%s") , $file, $err);
         }
         
-        switch ($this->getRawValue("ifc_mode")) {
+        switch ($this->getRawValue(MyAttributes::ifc_mode)) {
             case "FTP":
                 $fpath = $this->fcFtpLocalFile($file);
                 break;
+
             default:
-                $fpath = $this->getRawValue('ifc_path') . "/" . $file;
+                $fpath = $this->getRawValue(MyAttributes::ifc_path) . "/" . $file;
         }
         $infos = $this->iGetFileTransf($file);
         
@@ -277,8 +275,7 @@ Class _FILECONNECTOR extends Doc
                 if (method_exists($doc, "connectorExecute")) {
                     /** @noinspection PhpUndefinedMethodInspection */
                     $err = $doc->connectorExecute($this, $fpath);
-                }
-                else {
+                } else {
                     $doc->disableEditControl();
                     $attr = $infos['attr'];
                     if ($attr == "") {
@@ -319,7 +316,7 @@ Class _FILECONNECTOR extends Doc
             if ($fromihm == 1) AddWarningMsg(sprintf(_("doc %s was created for file %s") , $doc->id, $file));
         }
         
-        switch ($this->getRawValue("ifc_mode")) {
+        switch ($this->getRawValue(MyAttributes::ifc_mode)) {
             case "FTP":
                 @unlink($fpath);
                 break;
@@ -346,7 +343,7 @@ Class _FILECONNECTOR extends Doc
     
     final public function getCxFiles()
     {
-        return $this->getMultipleRawValues("ifc_c_name");
+        return $this->getMultipleRawValues(MyAttributes::ifc_c_name);
     }
     
     final public function getCxFileContent($file = '')
@@ -354,8 +351,8 @@ Class _FILECONNECTOR extends Doc
         if (!$this->isValidCxFile($file)) {
             return sprintf(_("(ifc) no such file %s") , $file);
         }
-        $c = file_get_contents($this->getRawValue("ifc_uris") . "/" . $file);
-        if (!$c) $c = sprintf(_("(ifc) can't retrieve content for file %s") , $this->getRawValue("ifc_uris") . "/" . $file);
+        $c = file_get_contents($this->getRawValue(MyAttributes::ifc_uris) . "/" . $file);
+        if (!$c) $c = sprintf(_("(ifc) can't retrieve content for file %s") , $this->getRawValue(MyAttributes::ifc_uris) . "/" . $file);
         return $c;
     }
     
@@ -364,13 +361,13 @@ Class _FILECONNECTOR extends Doc
         if (!$this->isValidCxFile($file)) {
             return sprintf(_("(ifc) no such file %s") , $file);
         }
-        switch ($this->getRawValue("ifc_mode")) {
+        switch ($this->getRawValue(MyAttributes::ifc_mode)) {
             case "FTP":
                 $lpath = $this->fcFtpLocalFile($file);
                 break;
 
             default:
-                $lpath = $this->getRawValue('ifc_path') . "/" . $file;
+                $lpath = $this->getRawValue(MyAttributes::ifc_path) . "/" . $file;
         }
         if (!is_dir($path)) {
             return sprintf(_("(ifc) can't access directory %s") , $path);
@@ -388,7 +385,7 @@ Class _FILECONNECTOR extends Doc
     
     final protected function isValidCxFile($file = '')
     {
-        $ft = $this->getMultipleRawValues("ifc_c_name");
+        $ft = $this->getMultipleRawValues(MyAttributes::ifc_c_name);
         if (!in_array($file, $ft)) return false;
         else return true;
     }
@@ -397,16 +394,16 @@ Class _FILECONNECTOR extends Doc
     {
         static $minfo = array();
         
-        $fn = $this->getMultipleRawValues("ifc_c_name");
-        $fm = $this->getMultipleRawValues("ifc_c_match");
+        $fn = $this->getMultipleRawValues(MyAttributes::ifc_c_name);
+        $fm = $this->getMultipleRawValues(MyAttributes::ifc_c_match);
         $p = array_search($file, $fn);
         $m = $fm[$p];
         if (!isset($minfo[$m])) {
-            $trn = $this->getMultipleRawValues("ifc_sl_name");
-            $trf = $this->getMultipleRawValues("ifc_sl_familyid");
-            $tra = $this->getMultipleRawValues("ifc_sl_attrid");
-            $trd = $this->getMultipleRawValues("ifc_sl_dirid");
-            $trs = $this->getMultipleRawValues("ifc_sl_suppr");
+            $trn = $this->getMultipleRawValues(MyAttributes::ifc_sl_name);
+            $trf = $this->getMultipleRawValues(MyAttributes::ifc_sl_familyid);
+            $tra = $this->getMultipleRawValues(MyAttributes::ifc_sl_attrid);
+            $trd = $this->getMultipleRawValues(MyAttributes::ifc_sl_dirid);
+            $trs = $this->getMultipleRawValues(MyAttributes::ifc_sl_suppr);
             $pr = array_search($m, $trn);
             $minfo[$m] = array(
                 "match" => $m,
@@ -422,21 +419,21 @@ Class _FILECONNECTOR extends Doc
     final protected function setCxFileStatus($file = '', $st = "U")
     {
         if (!$this->isValidCxFile($file)) return;
-        $fn = $this->getMultipleRawValues('ifc_c_name');
-        $fs = $this->getMultipleRawValues('ifc_c_state');
+        $fn = $this->getMultipleRawValues(MyAttributes::ifc_c_name);
+        $fs = $this->getMultipleRawValues(MyAttributes::ifc_c_state);
         $p = array_search($file, $fn);
         $fs[$p] = $st;
-        $this->setValue('ifc_c_state', $fs);
+        $this->setValue(MyAttributes::ifc_c_state, $fs);
         $this->modify(true, array(
-            'ifc_c_state'
+            MyAttributes::ifc_c_state
         ) , true);
     }
     
     final public function getCxFileStatus($file = '')
     {
         if (!$this->isValidCxFile($file)) return false;
-        $fn = $this->getMultipleRawValues('ifc_c_name');
-        $fs = $this->getMultipleRawValues('ifc_c_state');
+        $fn = $this->getMultipleRawValues(MyAttributes::ifc_c_name);
+        $fs = $this->getMultipleRawValues(MyAttributes::ifc_c_state);
         $p = array_search($file, $fn);
         return $fs[$p];
     }
@@ -447,7 +444,7 @@ Class _FILECONNECTOR extends Doc
         $infos = $this->iGetFileTransf($file);
         if ($infos["dir"]) {
             /**
-             * @var Dir $dir
+             * @var \Dcp\Family\Dir $dir
              */
             $dir = new_Doc($this->dbaccess, $infos["dir"]);
             if ($dir->isAlive() && $dir->doctype == 'D') {
@@ -462,33 +459,33 @@ Class _FILECONNECTOR extends Doc
         if (!$this->isValidCxFile($file)) {
             return false;
         }
-        switch ($this->getRawValue("ifc_mode")) {
+        switch ($this->getRawValue(MyAttributes::ifc_mode)) {
             case "FTP":
                 $ret = $this->fcRemoveFtpFile($file);
                 break;
 
             default:
-                $fpath = $this->getRawValue('ifc_path') . "/" . $file;
+                $fpath = $this->getRawValue(MyAttributes::ifc_path) . "/" . $file;
                 $ret = @unlink($fpath);
         }
         if (!$ret) {
             AddWarningMsg(sprintf(_("(ifc) can't unlink file %s") , $file));
             $this->setCxFileStatus($file, "D");
         } else {
-            $ofp = $this->getMultipleRawValues("ifc_c_match");
-            $ofn = $this->getMultipleRawValues("ifc_c_name");
-            $ofs = $this->getMultipleRawValues("ifc_c_size");
-            $ofm = $this->getMultipleRawValues("ifc_c_mtime");
-            $ofx = $this->getMultipleRawValues("ifc_c_state");
+            $ofp = $this->getMultipleRawValues(MyAttributes::ifc_c_match);
+            $ofn = $this->getMultipleRawValues(MyAttributes::ifc_c_name);
+            $ofs = $this->getMultipleRawValues(MyAttributes::ifc_c_size);
+            $ofm = $this->getMultipleRawValues(MyAttributes::ifc_c_mtime);
+            $ofx = $this->getMultipleRawValues(MyAttributes::ifc_c_state);
             
             $p = array_search($file, $ofn);
             if ($p !== false) {
                 
-                $this->clearValue('ifc_c_match');
-                $this->clearValue('ifc_c_name');
-                $this->clearValue('ifc_c_size');
-                $this->clearValue('ifc_c_mtime');
-                $this->clearValue('ifc_c_state');
+                $this->clearValue(MyAttributes::ifc_c_match);
+                $this->clearValue(MyAttributes::ifc_c_name);
+                $this->clearValue(MyAttributes::ifc_c_size);
+                $this->clearValue(MyAttributes::ifc_c_mtime);
+                $this->clearValue(MyAttributes::ifc_c_state);
                 
                 unset($ofp[$p]);
                 unset($ofn[$p]);
@@ -496,18 +493,18 @@ Class _FILECONNECTOR extends Doc
                 unset($ofm[$p]);
                 unset($ofx[$p]);
                 
-                $this->setValue('ifc_c_match', $ofp);
-                $this->setValue('ifc_c_name', $ofn);
-                $this->setValue('ifc_c_size', $ofs);
-                $this->setValue('ifc_c_mtime', $ofm);
-                $this->setValue('ifc_c_state', $ofx);
+                $this->setValue(MyAttributes::ifc_c_match, $ofp);
+                $this->setValue(MyAttributes::ifc_c_name, $ofn);
+                $this->setValue(MyAttributes::ifc_c_size, $ofs);
+                $this->setValue(MyAttributes::ifc_c_mtime, $ofm);
+                $this->setValue(MyAttributes::ifc_c_state, $ofx);
                 
                 $this->modify(true, array(
-                    'ifc_c_match',
-                    'ifc_c_name',
-                    'ifc_c_size',
-                    'ifc_c_mtime',
-                    'ifc_c_state'
+                    MyAttributes::ifc_c_match,
+                    MyAttributes::ifc_c_name,
+                    MyAttributes::ifc_c_size,
+                    MyAttributes::ifc_c_mtime,
+                    MyAttributes::ifc_c_state
                 ) , true);
             }
         }
@@ -519,7 +516,7 @@ Class _FILECONNECTOR extends Doc
         include_once "EXTERNALS/fileconnector.php";
         
         $error_message = "";
-        $proto = $this->getRawValue("ifc_mode");
+        $proto = $this->getRawValue(MyAttributes::ifc_mode);
         $lp = getAvailableProtocols();
         $needed = explode("|", strtolower($lp[$proto]["needed"]));
         
@@ -538,12 +535,11 @@ Class _FILECONNECTOR extends Doc
         $error_message = "";
         $proposal = array();
         
-        $fam = $this->getMultipleRawValues("ifc_sl_familyid");
+        $fam = $this->getMultipleRawValues(MyAttributes::ifc_sl_familyid);
         foreach ($fam as $v) {
             if (trim($v) == '') {
                 $error_message = sprintf(_("valid families are needed"));
-            }
-            else {
+            } else {
                 $fd = new_Doc($this->dbaccess, $v);
                 if (!$fd->isAlive() || $fd->doctype != 'C') {
                     $error_message = sprintf(_("valid families are needed"));
@@ -567,7 +563,7 @@ Class _FILECONNECTOR extends Doc
     
     final protected function showSourceMenu()
     {
-        if ($this->getRawValue("ifc_opened") == 1) {
+        if ($this->getRawValue(MyAttributes::ifc_opened) == 1) {
             return MENU_ACTIVE;
         }
         return MENU_INACTIVE;
@@ -582,33 +578,33 @@ Class _FILECONNECTOR extends Doc
     {
         
         $exist = false;
-        if ($this->getRawValue("ifc_p_procid") > 0) {
-            $dp = new_Doc($this->dbaccess, $this->getRawValue("ifc_p_procid"), true);
+        if ($this->getRawValue(MyAttributes::ifc_p_procid) > 0) {
+            $dp = new_Doc($this->dbaccess, $this->getRawValue(MyAttributes::ifc_p_procid) , true);
             if ($dp->isAlive()) {
                 $exist = true;
             }
         }
         
         if (!$exist) {
-            $dp = createDoc($this->dbaccess, "EXEC");
-            $dp->setValue("exec_title", sprintf("[FileConnector] %s", $this->getTitle()));
-            $dp->setValue("exec_application", "FDL");
-            $dp->setValue("exec_action", "FDL_METHOD");
-            $dp->setValue("exec_idvar", array(
+            $dp = createDoc($this->dbaccess, \Dcp\Family\Exec::familyName);
+            $dp->setValue(Attributes\Exec::exec_title, sprintf("[FileConnector] %s", $this->getTitle()));
+            $dp->setValue(Attributes\Exec::exec_application, "FDL");
+            $dp->setValue(Attributes\Exec::exec_action, "FDL_METHOD");
+            $dp->setValue(Attributes\Exec::exec_idvar, array(
                 "id",
                 "method"
             ));
-            $dp->setValue("exec_valuevar", array(
+            $dp->setValue(Attributes\Exec::exec_valuevar, array(
                 $this->id,
                 "transfertNewCxFiles()"
             ));
             $err = $dp->add();
             if ($err == "") {
-                $this->setValue("ifc_p_procid", $dp->id);
-                $this->setValue("ifc_p_proc", $dp->getRawValue("exec_title"));
+                $this->setValue(MyAttributes::ifc_p_procid, $dp->id);
+                $this->setValue(MyAttributes::ifc_p_proc, $dp->getRawValue(Attributes\Exec::exec_title));
                 $this->modify(true, array(
-                    "ifc_p_procid",
-                    "ifc_p_proc"
+                    MyAttributes::ifc_p_procid,
+                    MyAttributes::ifc_p_proc
                 ) , true);
             } else {
                 return $err;
@@ -617,16 +613,16 @@ Class _FILECONNECTOR extends Doc
         
         if ($this->getRawValue("ifc_p_run") == 1) {
             /** @noinspection PhpUndefinedVariableInspection */
-            $dp->setValue("exec_handnextdate", $this->getRawValue("ifc_p_cdateexec"));
-            $dp->setValue("exec_periodday", $this->getRawValue("ifc_p_cperday"));
-            $dp->setValue("exec_periodhour", $this->getRawValue("ifc_p_cperhour"));
-            $dp->setValue("exec_periodmin", $this->getRawValue("ifc_p_cpermin"));
+            $dp->setValue(Attributes\Exec::exec_handnextdate, $this->getRawValue(MyAttributes::ifc_p_cdateexec));
+            $dp->setValue(Attributes\Exec::exec_periodday, $this->getRawValue(MyAttributes::ifc_p_cperday));
+            $dp->setValue(Attributes\Exec::exec_periodhour, $this->getRawValue(MyAttributes::ifc_p_cperhour));
+            $dp->setValue(Attributes\Exec::exec_periodmin, $this->getRawValue(MyAttributes::ifc_p_cpermin));
         } else {
             /** @noinspection PhpUndefinedVariableInspection */
-            $dp->setValue("exec_handnextdate", " ");
-            $dp->setValue("exec_periodday", 0);
-            $dp->setValue("exec_periodhour", 0);
-            $dp->setValue("exec_periodmin", 0);
+            $dp->setValue(Attributes\Exec::exec_handnextdate, " ");
+            $dp->setValue(Attributes\Exec::exec_periodday, 0);
+            $dp->setValue(Attributes\Exec::exec_periodhour, 0);
+            $dp->setValue(Attributes\Exec::exec_periodmin, 0);
         }
         
         $err = $dp->modify();
@@ -643,7 +639,7 @@ Class _FILECONNECTOR extends Doc
     // FTP management ------------------------------------------------------------------------------------
     final protected function fcFtpConnexion()
     {
-        $server = $this->getRawValue("ifc_host") . ($this->getRawValue("ifc_port") == "" ? "" : ":" . $this->getRawValue("ifc_port"));
+        $server = $this->getRawValue(MyAttributes::ifc_host) . ($this->getRawValue(MyAttributes::ifc_port) == "" ? "" : ":" . $this->getRawValue(MyAttributes::ifc_port));
         $ftpConn = ftp_connect($server);
         error_log("(FTP) connexion sur $server");
         return $ftpConn;
@@ -651,8 +647,8 @@ Class _FILECONNECTOR extends Doc
     
     final protected function fcFtpLogin($conn)
     {
-        $user = ($this->getRawValue("ifc_login") == "" ? "anonymous" : $this->getRawValue("ifc_login"));
-        $passwd = ($this->getRawValue("ifc_password") == "" ? "none@nodomain.org" : $this->getRawValue("ifc_password"));
+        $user = ($this->getRawValue(MyAttributes::ifc_login) == "" ? "anonymous" : $this->getRawValue(MyAttributes::ifc_login));
+        $passwd = ($this->getRawValue(MyAttributes::ifc_password) == "" ? "none@nodomain.org" : $this->getRawValue(MyAttributes::ifc_password));
         error_log("(FTP) login $user/$passwd");
         return ftp_login($conn, $user, $passwd);
     }
@@ -661,7 +657,7 @@ Class _FILECONNECTOR extends Doc
     {
         $conn = $this->fcFtpConnexion();
         $this->fcFtpLogin($conn);
-        $file = $this->getRawValue("ifc_path") . (substr($this->getRawValue("ifc_path") , -1) == '/' ? '' : '/') . $file;
+        $file = $this->getRawValue(MyAttributes::ifc_path) . (substr($this->getRawValue(MyAttributes::ifc_path) , -1) == '/' ? '' : '/') . $file;
         error_log("(FTP) file info $file");
         $res["size"] = ftp_size($conn, $file);
         $res["date"] = ftp_mdtm($conn, $file);
@@ -673,8 +669,8 @@ Class _FILECONNECTOR extends Doc
     {
         $conn = $this->fcFtpConnexion();
         $this->fcFtpLogin($conn);
-        ftp_pasv($conn, $this->getRawValue("IFC_PASSIF_MODE") === "TRUE");
-        $fpath = $this->getRawValue("ifc_path") . (substr($this->getRawValue("ifc_path") , -1) == '/' ? '' : '/') . $file;
+        ftp_pasv($conn, $this->getRawValue(MyAttributes::ifc_passif_mode) === "TRUE");
+        $fpath = $this->getRawValue(MyAttributes::ifc_path) . (substr($this->getRawValue(MyAttributes::ifc_path) , -1) == '/' ? '' : '/') . $file;
         $tmpDir = getParam("CORE_TMPDIR", "/tmp/");
         $filename = "$tmpDir/tmp_ftp_import" . $this->id . "-" . $file;
         ftp_get($conn, $filename, $fpath, FTP_BINARY);
@@ -687,17 +683,11 @@ Class _FILECONNECTOR extends Doc
     {
         $conn = $this->fcFtpConnexion();
         $this->fcFtpLogin($conn);
-        $fpath = $this->getRawValue("ifc_path") . (substr($this->getRawValue("ifc_path") , -1) == '/' ? '' : '/') . $file;
+        $fpath = $this->getRawValue(MyAttributes::ifc_path) . (substr($this->getRawValue(MyAttributes::ifc_path) , -1) == '/' ? '' : '/') . $file;
         $st = ftp_delete($conn, $fpath);
         error_log("(FTP) delete $fpath (status=" . ($st ? "OK" : "KO"));
         ftp_close($conn);
         return $st;
     }
-    /**
-     * @begin-method-ignore
-     * this part will be deleted when construct document class until end-method-ignore
-     */
 }
-/*
- * @end-method-ignore
-*/
+
