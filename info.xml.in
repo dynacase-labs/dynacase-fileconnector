@@ -20,7 +20,7 @@
   <post-upgrade>
     <process command="programs/pre_migration  @APPNAME@" />
     <process command="programs/record_application  @APPNAME@" />
-    <process command="./wsh.php --api=importDocuments --file=./ @APPNAME@/fileconnector.csv" />
+    <process command="./wsh.php --api=importDocuments --file=./@APPNAME@/fileconnector.csv" />
     <process command="programs/post_migration  @APPNAME@" />
     <process command="programs/update_catalog" />
   </post-upgrade>
