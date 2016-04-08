@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<module name="dynacase-fileconnector" version="@VERSION@" release="@RELEASE@" license="@LICENSE@">
+<module name="dynacase-fileconnector" version="@VERSION@" release="@RELEASE@" license="http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License v3.0">
 
   <description lang="en">Dynacase file connector allow automatic file import in dynacase for FTP and file system files</description>
 

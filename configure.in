@@ -24,9 +24,6 @@ APPNAME=FILECONNECTOR
 AC_SUBST(PACKAGELIB)
 PACKAGELIB=FDL
 
-LICENSE="http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License"
-AC_SUBST(LICENSE)
-
 ac_default_prefix=/usr/share/what
 
 AC_SUBST(PUBRULE)
