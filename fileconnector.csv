@@ -25,7 +25,7 @@ ATTR;IFC_PASSWORD;IFC_ACCESS;password;N;N;password;1150;O;;;;;;::checkInput('ifc
 ATTR;IFC_PATH;IFC_ACCESS;path;N;Y;text;1160;O;;;;;;::checkInput('ifc_path);
 ATTR;IFC_URIS;IFC_ACCESS;URI computed (secure);N;Y;text;1170;R;;%S%app=FDL&action=FDL_METHOD&id=%ID%&method=::verifyNewCxFiles();;;;;
 ATTR;IFC_OPENED;IFC_ACCESS;is accessible;N;Y;enum;1180;R;;;;0|no,1|yes;;;
-ATTR;IFC_LASTSCAN;IFC_ACCESS;last scan;N;Y;timestamp("%A %d %B %Y %X");1190;R;;;;;;;
+ATTR;IFC_LASTSCAN;IFC_ACCESS;last scan;N;Y;"timestamp(""%A %d %B %Y %X"")";1190;R;;;;;;;
 ;;;;;;;;;;;;;;;
 ATTR;IFC_SPEC;;pattern matching;N;N;frame;2100;W;;;;;;;
 ATTR;IFC_LIST;IFC_SPEC;rules;N;N;array;2110;W;;;;;;;empty=yes

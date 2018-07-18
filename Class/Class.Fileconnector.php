@@ -38,7 +38,7 @@ Class Fileconnector extends \Dcp\Family\Document
         }
         $this->setValue(MyAttributes::ifc_uris, $uri);
         $valid = 0;
-        $dt = opendir($uri);
+        $dt = opendir($this->uriWithPassword($uri, $this->getRawValue(MyAttributes::ifc_password)));
         if (!$dt) {
             AddWarningMsg(sprintf(_("(ifc) can't access file from %s") , $uri));
         } else {
@@ -58,13 +58,42 @@ Class Fileconnector extends \Dcp\Family\Document
         
         return;
     }
-    
+
+    protected function uriWithPassword($uri, $password) {
+        $newUri = '';
+        $prefixHost = '';
+        $tokens = parse_url($uri);
+        if (isset($tokens['scheme'])) {
+            $newUri.= $tokens['scheme'] . '://';
+        }
+        if (isset($tokens['user'])) {
+            $newUri.= $tokens['user'];
+            $prefixHost = '@';
+            if ($password !== '') {
+                $newUri.= ':' . urlencode($password);
+            }
+        }
+        if (isset($tokens['host'])) {
+            if ($prefixHost !== '') {
+                $newUri.= $prefixHost;
+            }
+            $newUri.= $tokens['host'];
+        }
+        if (isset($tokens['port'])) {
+            $newUri.= ':' . $tokens['port'];
+        }
+        if (isset($tokens['path']) && $tokens['path'] !== '') {
+            $newUri.= $tokens['path'];
+        }
+        return $newUri;
+    }
+
     final public function scanSource()
     {
         global $action;
         $dir = $this->getRawValue(MyAttributes::ifc_uris);
         $proto = $this->getRawValue(MyAttributes::ifc_mode);
-        $dt = opendir($dir);
+        $dt = opendir($this->uriWithPassword($dir, $this->getRawValue(MyAttributes::ifc_password)));
         if (!$dt) {
             $action->log->error("[" . $this->title . "]: can't open dir " . $this->getRawValue(MyAttributes::ifc_uris));
             return null;
@@ -350,7 +379,11 @@ Class Fileconnector extends \Dcp\Family\Document
         if (!$this->isValidCxFile($file)) {
             return sprintf(_("(ifc) no such file %s") , $file);
         }
-        $c = file_get_contents($this->getRawValue(MyAttributes::ifc_uris) . "/" . $file);
+        $uri = $this->getRawValue(MyAttributes::ifc_uris);
+        if ($this->getRawValue(MyAttributes::ifc_mode) === 'FTP') {
+            $uri = $this->uriWithPassword($uri, $this->getRawValue(MyAttributes::ifc_password));
+        }
+        $c = file_get_contents($uri . "/" . $file);
         if (!$c) $c = sprintf(_("(ifc) can't retrieve content for file %s") , $this->getRawValue(MyAttributes::ifc_uris) . "/" . $file);
         return $c;
     }
@@ -648,7 +681,7 @@ Class Fileconnector extends \Dcp\Family\Document
     {
         $user = ($this->getRawValue(MyAttributes::ifc_login) == "" ? "anonymous" : $this->getRawValue(MyAttributes::ifc_login));
         $passwd = ($this->getRawValue(MyAttributes::ifc_password) == "" ? "none@nodomain.org" : $this->getRawValue(MyAttributes::ifc_password));
-        error_log("(FTP) login $user/$passwd");
+        error_log("(FTP) login $user");
         return ftp_login($conn, $user, $passwd);
     }
     
